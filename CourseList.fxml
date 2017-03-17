@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="504.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView prefHeight="411.0" prefWidth="504.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Table" />
+        </columns>
+      </TableView>
+      <Button layoutX="223.0" layoutY="417.0" mnemonicParsing="false" text="Filter" />
+   </children>
+</Pane>
