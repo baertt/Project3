@@ -19,7 +19,7 @@
       </Label>
       <Button fx:id="search" layoutX="276.0" layoutY="263.0" mnemonicParsing="false" onAction="#searchFunction" text="Search" />
       <CheckBox layoutX="44.0" layoutY="76.0" mnemonicParsing="false" text="Professor" />
-      <CheckBox layoutX="43.0" layoutY="114.0" mnemonicParsing="false" text="Course Number" />
+      <CheckBox layoutX="43.0" layoutY="114.0" mnemonicParsing="false" text="Fast Search Number" />
       <CheckBox layoutX="43.0" layoutY="151.0" mnemonicParsing="false" text="Course Title" />
       <CheckBox layoutX="43.0" layoutY="188.0" mnemonicParsing="false" text="Course Time" />
       <CheckBox layoutX="42.0" layoutY="226.0" mnemonicParsing="false" text="Department" />

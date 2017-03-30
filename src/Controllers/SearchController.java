@@ -22,10 +22,10 @@ public class SearchController {
 
 	@FXML
 	CheckBox courseTime, department,
-		professor, courseNumber, courseTitle;
+		professor, fastSearch, courseTitle;
 
 	@FXML
-	TextField professorText, courseNumberText, courseTitleText;
+	TextField professorText, fastSearchNumberText, courseTitleText;
 
 	@FXML
 	ChoiceBox courseTimeSelector, departmentSelector;
