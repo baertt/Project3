@@ -36,12 +36,18 @@ public class ConstructDatabase {
 			stat.execute("drop table if exists course");
 			stat.execute("create table course (CourseId integer, CourseCode string, Title string, Period string, Schedule string, Instructors string, Description string)");
 			List<?> x = (List<?>) json_obj.get("value");
+			
 			for (int i = 0; i < x.size(); i++) {
 //				System.out.println(x.get(i));
+				String des = new String();
 				HashMap<?, ?> y = (HashMap<?, ?>) x.get(i);
+				if (y.get("Description") == null) {
+					des = "None";
+				} else {
+					des = y.get("Description").toString().trim();
+				}
 				List<?> schedule = (List<?>) y.get("Schedule");
 				List<?> instructors = (List<?>) y.get("Instructors");
-//				System.out.println(apos.remodify(y.get("Description").toString().trim()));
 //				System.out.println(i);
 //				System.out.println(y.get("CourseId"));
 //				System.out.println(y.get("Title"));
@@ -52,7 +58,7 @@ public class ConstructDatabase {
 				+ ", '" + y.get("Period").toString().trim() + "'"
 				+ ", '" + newdata.newschedule(schedule) + "'"
 				+ ", '" + apos.remodify(newdata.instructor(instructors)) + "'"
-				+ ", '" + apos.remodify(y.get("Description").toString().trim()) + "'"
+				+ ", '" + apos.remodify(des) + "'"
 //				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"
 				+ ")");
 			}
