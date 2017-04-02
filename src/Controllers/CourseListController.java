@@ -43,5 +43,10 @@ public class CourseListController {
 			r.showAndWait();
 		}
 	}
+	
+	
+	public void populate(){
+		
+	}
 
 }
