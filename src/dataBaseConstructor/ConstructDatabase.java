@@ -45,6 +45,7 @@ public class ConstructDatabase {
 				System.out.println(i);
 //				System.out.println(y.get("CourseId"));
 //				System.out.println(y.get("Title"));
+<<<<<<< HEAD
 				stat.execute("insert into course values(" 
 				+ y.get("CourseId").toString().trim()
 				+ ", '" + y.get("CourseCode").toString().trim() + "'"	
@@ -53,9 +54,16 @@ public class ConstructDatabase {
 				+ ", '" + newdata.newschedule(schedule) + "'"
 				+ ", '" + apos.remodify(newdata.instructor(instructors)) + "'"
 //				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"			
+=======
+				stat.execute("insert into course values("
+				+ y.get("CourseId").toString().trim()
+				+ ", '" + apos.remodify(y.get("CourseCode").toString().trim()) + "'"
+				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"
+//				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"
+>>>>>>> master
 				+ ")");
 			}
-			
+
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -13,7 +13,7 @@ import java.nio.channels.ReadableByteChannel;
 
 public class ConstructJson {
 	public void loadJson (String url, String filename) throws FileNotFoundException {
-		
+
 		try {
 			URL urlObject = new URL(url);
 			ReadableByteChannel rbc = Channels.newChannel(urlObject.openStream());
@@ -24,7 +24,7 @@ public class ConstructJson {
 //			BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
 //			String inputLine = null;
 //			while ((inputLine = in.readLine()) != null) {
-//				
+//
 //			}
 //			in.close();
 		} catch (MalformedURLException e) {
@@ -33,9 +33,9 @@ public class ConstructJson {
 			e.printStackTrace();
 		}
 	}
-	
+
 //	public void checkFile (String filename) {
-//		
+//
 //	}
 
 }
