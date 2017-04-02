@@ -18,7 +18,7 @@ public class ApostropheCheckerTest {
 
 	@Test
 	public void teststring() throws FileNotFoundException {
-		assertEquals("x''s", findapos.remodify("x's"));
+		assertEquals("Atlans'' democarcy", findapos.remodify("Atlans' democarcy"));
 		//assertEquals(true, findapos.remodify("name"));
 	}
 
