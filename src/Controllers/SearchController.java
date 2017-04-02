@@ -36,15 +36,20 @@ public class SearchController {
 	@FXML
 	public void initialize(){
 		//courseTimeSelector.getItems().addAll("Project 1", "Project 2", "Project 3", "Project 4");
-		departmentSelector.getItems().addAll("Project 1", "Project 2", "Project 3", "Project 4");
+		departmentSelector.getItems().addAll("Natural Sciences", "Project 2", "Project 3", "Project 4");
 		departmentSelector.getSelectionModel().select(0);
 
 		 departmentSelector.getSelectionModel().selectedItemProperty()
 		 .addListener((obs, oldV, newV) ->
 		    deleteOldData());
-		
+
 
 	}
+
+	void deleteOldData() {
+
+	}
+
 
 	@FXML
 	public void searchFunction(ActionEvent event){
