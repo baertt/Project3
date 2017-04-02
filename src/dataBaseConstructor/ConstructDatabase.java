@@ -33,7 +33,7 @@ public class ConstructDatabase {
 			Object obj = parser.parse(new FileReader(filename + ".json"));
 			JSONObject json_obj = (JSONObject) obj;
 			stat.execute("drop table if exists course");
-			stat.execute("create table course (CourseId integer, Title string)");
+			stat.execute("create table course (CourseId integer, CourseCode string, Title string)");
 			List<?> x = (List<?>) json_obj.get("value");
 			System.out.println(x);
 			for (int i = 0; i < x.size(); i++) {
@@ -44,7 +44,8 @@ public class ConstructDatabase {
 //				System.out.println(y.get("Title"));
 				stat.execute("insert into course values(" 
 				+ y.get("CourseId").toString().trim() 
-				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'" 
+				+ ", '" + apos.remodify(y.get("CourseCode").toString().trim()) + "'"	
+				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"
 //				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"			
 				+ ")");
 			}
