@@ -1,5 +1,11 @@
 package Controllers;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import dataBaseConstructor.ConstructDatabase;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,7 +33,7 @@ public class CourseListController {
 	TableColumn<TableView<CourseInfo>, String> time;
 
 	@FXML
-	public void initialize(){
+	public void initialize() throws ClassNotFoundException, SQLException{
 		code.setCellValueFactory(new PropertyValueFactory<>("code"));
 		title.setCellValueFactory(new PropertyValueFactory<>("title"));
 		prof.setCellValueFactory(new PropertyValueFactory<>("prof"));
@@ -63,7 +69,12 @@ public class CourseListController {
 	}
 
 
-	public void populate(){
+	public void populate() throws ClassNotFoundException, SQLException{
+		ConstructDatabase db = new ConstructDatabase();
+		db.Construct("sample.db");
+		Class.forName("org.sqlite.JDBC");
+        Connection con = DriverManager.getConnection("jdbc:sqlite:sample.db");
+        Statement stat = con.createStatement();
 		//courses.getItems().add(arg0)
 	}
 
