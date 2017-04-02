@@ -3,10 +3,9 @@ package Controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -16,10 +15,25 @@ public class CourseListController {
 
 	@FXML
 	TableView<CourseInfo> courses;
+	@FXML
+	TableColumn<TableView<CourseInfo>, String> code;
+	@FXML
+	TableColumn<TableView<CourseInfo>, String> title;
+	@FXML
+	TableColumn<TableView<CourseInfo>, String> prof;
+	@FXML
+	TableColumn<TableView<CourseInfo>, String> period;
+	@FXML
+	TableColumn<TableView<CourseInfo>, String> time;
 
 	@FXML
 	public void initialize(){
-
+		code.setCellValueFactory(new PropertyValueFactory<>("code"));
+		title.setCellValueFactory(new PropertyValueFactory<>("title"));
+		prof.setCellValueFactory(new PropertyValueFactory<>("prof"));
+		period.setCellValueFactory(new PropertyValueFactory<>("period"));
+		time.setCellValueFactory(new PropertyValueFactory<>("time"));
+		populate();
 	}
 
 	@FXML
@@ -50,7 +64,7 @@ public class CourseListController {
 
 
 	public void populate(){
-
+		//courses.getItems().add(arg0)
 	}
 
 }
