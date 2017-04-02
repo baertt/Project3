@@ -22,6 +22,7 @@ import org.json.simple.parser.ParseException;
 
 public class ConstructDatabase {
 	static final ApostropheChecker apos = new ApostropheChecker();
+	static final NewDataConstructer newdata = new NewDataConstructer();
 	public void Construct(String filename) throws ClassNotFoundException{
 //		URL urlObject = new URL(url);
 		JSONParser parser=new JSONParser();
@@ -33,20 +34,33 @@ public class ConstructDatabase {
 			Object obj = parser.parse(new FileReader(filename + ".json"));
 			JSONObject json_obj = (JSONObject) obj;
 			stat.execute("drop table if exists course");
-			stat.execute("create table course (CourseId integer, CourseCode string, Title string)");
+			stat.execute("create table course (CourseId integer, CourseCode string, Title string, Period string, Schedule string, Instructors string)");
 			List<?> x = (List<?>) json_obj.get("value");
 			System.out.println(x);
 			for (int i = 0; i < x.size(); i++) {
 //				System.out.println(x.get(i));
 				HashMap<?, ?> y = (HashMap<?, ?>) x.get(i);
+				List<?> schedule = (List<?>) y.get("Schedule");
+				List<?> instructors = (List<?>) y.get("Instructors");
 				System.out.println(i);
 //				System.out.println(y.get("CourseId"));
 //				System.out.println(y.get("Title"));
+<<<<<<< HEAD
+				stat.execute("insert into course values(" 
+				+ y.get("CourseId").toString().trim()
+				+ ", '" + y.get("CourseCode").toString().trim() + "'"	
+				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"
+				+ ", '" + y.get("Period").toString().trim() + "'"
+				+ ", '" + newdata.newschedule(schedule) + "'"
+				+ ", '" + apos.remodify(newdata.instructor(instructors)) + "'"
+//				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"			
+=======
 				stat.execute("insert into course values("
 				+ y.get("CourseId").toString().trim()
 				+ ", '" + apos.remodify(y.get("CourseCode").toString().trim()) + "'"
 				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"
 //				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"
+>>>>>>> master
 				+ ")");
 			}
 
