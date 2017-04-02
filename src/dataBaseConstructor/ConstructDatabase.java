@@ -42,14 +42,14 @@ public class ConstructDatabase {
 				System.out.println(i);
 //				System.out.println(y.get("CourseId"));
 //				System.out.println(y.get("Title"));
-				stat.execute("insert into course values(" 
-				+ y.get("CourseId").toString().trim() 
-				+ ", '" + apos.remodify(y.get("CourseCode").toString().trim()) + "'"	
+				stat.execute("insert into course values("
+				+ y.get("CourseId").toString().trim()
+				+ ", '" + apos.remodify(y.get("CourseCode").toString().trim()) + "'"
 				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"
-//				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"			
+//				+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"
 				+ ")");
 			}
-			
+
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

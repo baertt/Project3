@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -12,6 +13,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class CourseListController {
+
+	@FXML
+	TableView<CourseInfo> courses;
 
 	@FXML
 	public void initialize(){
@@ -43,10 +47,10 @@ public class CourseListController {
 			r.showAndWait();
 		}
 	}
-	
-	
+
+
 	public void populate(){
-		
+
 	}
 
 }
