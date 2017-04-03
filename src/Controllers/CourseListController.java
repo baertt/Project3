@@ -1,11 +1,17 @@
 package Controllers;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import dataBaseConstructor.ConstructDatabase;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -14,8 +20,26 @@ import javafx.stage.Stage;
 public class CourseListController {
 
 	@FXML
-	public void initialize(){
+	TableView<CourseInfo> courses;
+	@FXML
+	TableColumn<TableView<CourseInfo>, String> code;
+	@FXML
+	TableColumn<TableView<CourseInfo>, String> title;
+	@FXML
+	TableColumn<TableView<CourseInfo>, String> prof;
+	@FXML
+	TableColumn<TableView<CourseInfo>, String> period;
+	@FXML
+	TableColumn<TableView<CourseInfo>, String> time;
 
+	@FXML
+	public void initialize() throws ClassNotFoundException, SQLException{
+		code.setCellValueFactory(new PropertyValueFactory<>("code"));
+		title.setCellValueFactory(new PropertyValueFactory<>("title"));
+		prof.setCellValueFactory(new PropertyValueFactory<>("prof"));
+		period.setCellValueFactory(new PropertyValueFactory<>("period"));
+		time.setCellValueFactory(new PropertyValueFactory<>("time"));
+		populate();
 	}
 
 	@FXML
@@ -43,10 +67,15 @@ public class CourseListController {
 			r.showAndWait();
 		}
 	}
-	
-	
-	public void populate(){
-		
+
+
+	public void populate() throws ClassNotFoundException, SQLException{
+		ConstructDatabase db = new ConstructDatabase();
+		db.Construct("sample.db");
+		Class.forName("org.sqlite.JDBC");
+        Connection con = DriverManager.getConnection("jdbc:sqlite:sample.db");
+        Statement stat = con.createStatement();
+		//courses.getItems().add(arg0)
 	}
 
 }
