@@ -39,6 +39,8 @@ public class CourseListController {
 	@FXML
 	MainController main;
 
+	String semester;
+
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException, FileNotFoundException{
 		code.setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -46,9 +48,22 @@ public class CourseListController {
 		prof.setCellValueFactory(new PropertyValueFactory<>("prof"));
 		period.setCellValueFactory(new PropertyValueFactory<>("period"));
 		time.setCellValueFactory(new PropertyValueFactory<>("time"));
-		populate();
+		/*semester = main.selectedSemester;
+
+		if(semester.equals("Fall")) populate("1S");
+		else if(semester.equals("Spring")) populate("2S");
+		else{populate("3S");}*/
+		//populate(main.semesterSelector.getSelectionModel().getSelectedItem());
 	}
 
+	@FXML
+	public void chooseSemester() throws ClassNotFoundException, FileNotFoundException, SQLException{
+		//semester = main.selectedSemester;
+
+		if(semester.equals("Fall")) populate("1S");
+		else if(semester.equals("Spring")) populate("2S");
+		else{populate("3S");}
+	}
 	@FXML
 	public void openSearch(){
 		try {
@@ -79,20 +94,27 @@ public class CourseListController {
 	}
 
 
-	public void populate() throws ClassNotFoundException, SQLException, FileNotFoundException{
+	public void populate(String semester) throws ClassNotFoundException, SQLException, FileNotFoundException{
 		Class.forName("org.sqlite.JDBC");
         Connection con = DriverManager.getConnection("jdbc:sqlite:sample.db");
         Statement stat = con.createStatement();
         if (stat.execute("select * from course")) {
             ResultSet results = stat.getResultSet();
+            System.out.println(results.getString(2));
+            System.out.println(semester);
             while (results.next()) {
-            	courses.getItems().add(new CourseInfo(results.getString(2), results.getString(3), results.getString(6), results.getString(4), results.getString(5)));
+            	if(semester.equals(results.getString(2))){
+            		courses.getItems().add(new CourseInfo(results.getString(3), results.getString(4), results.getString(7), results.getString(5), results.getString(6)));
+            	}
             }
         }
 	}
-
-	public void importVariables(MainController main) {
+	@FXML
+	public void importVariables(MainController main) throws ClassNotFoundException, FileNotFoundException, SQLException {
 		this.main = main;
+		this.semester = main.selectedSemester;
+		System.out.println("Importing variables");
+		chooseSemester();
 	}
 
 }
