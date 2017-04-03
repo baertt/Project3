@@ -92,11 +92,7 @@ public class SearchController {
 				"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8",
 				"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10",
 				"S1", "S2", "S3",
-<<<<<<< HEAD
 				"L1", "L2", "L3", "L4", "L5", "L6", "NA"));
-=======
-				"L1", "L2", "L3", "L4", "L5", "L-"));
->>>>>>> master
 
 
 
@@ -112,15 +108,12 @@ public class SearchController {
 		courseTimeSelector.getSelectionModel().select(0);
 	}
 
-<<<<<<< HEAD
-=======
 	public boolean isValidFastSearchNum(){
 
 		return true;
 	}
 
 
->>>>>>> master
 	// Citation #1
 	@FXML
 	public void openCourseTimeDescription(){
@@ -136,7 +129,6 @@ public class SearchController {
 
 
 	@FXML
-<<<<<<< HEAD
 	public void searchFunction() throws ClassNotFoundException, SQLException, IOException{
 		//System.out.println("OK");
 		Class.forName("org.sqlite.JDBC");
@@ -148,10 +140,7 @@ public class SearchController {
         String ctitle = new String();
         String cnum = new String();
         
-=======
-	public void searchFunction(){
->>>>>>> master
-		if(courseTime.isSelected()){
+        if (courseTime.isSelected()){
 			ctime = subjectSelector.getSelectionModel().getSelectedItem();
 		}
 
