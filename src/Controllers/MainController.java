@@ -7,6 +7,7 @@ import dataBaseConstructor.ConstructJson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,6 +26,7 @@ public class MainController {
 	@FXML
 	ChoiceBox<String> semesterSelector;
 
+	String selectedSemester;
 
 	@FXML
 	public void initialize() throws FileNotFoundException, ClassNotFoundException{
@@ -42,9 +44,15 @@ public class MainController {
 	@FXML
 	public void openCourseList(){
 		try {
+			selectedSemester = semesterSelector.getSelectionModel().getSelectedItem();
+			System.out.println(selectedSemester);
+
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(GuiMain.class.getResource("CourseList.fxml"));
 			Pane root = (Pane) loader.load();
+
+			CourseListController courseList = (CourseListController)loader.getController();
+			courseList.importVariables(this);
 
 			Stage secondStage = new Stage();
 			Scene scene = new Scene(root);
