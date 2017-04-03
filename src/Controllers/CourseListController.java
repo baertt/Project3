@@ -74,10 +74,6 @@ public class CourseListController {
 
 
 	public void populate() throws ClassNotFoundException, SQLException, FileNotFoundException{
-		/*ConstructJson file = new ConstructJson();
-		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202016%20and%20TermCode%20eq%20%271S%27&$orderby=CourseId%20asc", "sample");
-		ConstructDatabase db = new ConstructDatabase();
-		db.Construct("sample");*/
 		Class.forName("org.sqlite.JDBC");
         Connection con = DriverManager.getConnection("jdbc:sqlite:sample.db");
         Statement stat = con.createStatement();
