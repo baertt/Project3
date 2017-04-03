@@ -46,7 +46,7 @@ public class SearchController {
 	CheckBox professor;
 
 	@FXML
-	CheckBox fastSearch;
+	CheckBox courseNumber;
 
 	@FXML
 	CheckBox courseTitle;
@@ -55,7 +55,7 @@ public class SearchController {
 	TextField professorText;
 
 	@FXML
-	TextField fastSearchNumberText;
+	TextField courseNumberText;
 
 	@FXML
 	TextField courseTitleText;
@@ -102,15 +102,7 @@ public class SearchController {
 	}
 
 	public boolean isValidFastSearchNum(){
-		fastSearchNumberText.setStyle("-fx-border-color: white;");
-		try{
-			int num = Integer.parseInt(fastSearchNumberText.getText());
-			if(num >= 1000 && num < 100000){
-				return true;
-			}
-		} catch(Exception a){
-			return false;
-		}
+		
 		return true;
 	}
 
@@ -143,12 +135,12 @@ public class SearchController {
 			System.out.println("Professor");
 		}
 		
-		if(fastSearch.isSelected()){
-			System.out.println("FastSearch");
-		}
-		
 		if(courseTitle.isSelected()){
 			System.out.println("CourseTitle");
+		}
+		
+		if(courseNumber.isSelected()){
+			System.out.println("CourseNumber");
 		}
 
 		

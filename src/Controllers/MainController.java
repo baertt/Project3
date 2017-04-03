@@ -1,9 +1,12 @@
 package Controllers;
 
+import java.io.FileNotFoundException;
+
+import dataBaseConstructor.ConstructDatabase;
+import dataBaseConstructor.ConstructJson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,19 +21,23 @@ import javafx.stage.Stage;
 public class MainController {
 
 	@FXML
-	ChoiceBox semesterSelector;
+	ChoiceBox<String> semesterSelector;
 
 	List<String> semesters = new ArrayList<>(Arrays.asList("Fall", "Spring", "Summer"));
 
 	@FXML
-	public void initialize(){
+	public void initialize() throws FileNotFoundException, ClassNotFoundException{
+		ConstructJson file = new ConstructJson();
+		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202016%20and%20TermCode%20eq%20%271S%27&$orderby=CourseId%20asc", "sample");
+		ConstructDatabase db = new ConstructDatabase();
+		db.Construct("sample");
 		for(String semester: semesters){
 			semesterSelector.getItems().add(semester);
 		}
 		semesterSelector.getSelectionModel().select(0);
-
-
 	}
+
+
 
 	@FXML
 	public void openCourseList(){
