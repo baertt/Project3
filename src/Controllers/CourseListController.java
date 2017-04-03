@@ -76,7 +76,7 @@ public class CourseListController {
 
 			SearchController search = (SearchController)loader.getController();
 			search.importVariables(this);
-			
+
 			String url = "https://www.hendrix.edu/uploadedImages/Events_and_News/SHIELD%20web%20page.jpg";
 
 			Image anotherIcon = new Image(url);
@@ -100,8 +100,8 @@ public class CourseListController {
         Statement stat = con.createStatement();
         if (stat.execute("select * from course")) {
             ResultSet results = stat.getResultSet();
-            System.out.println(results.getString(2));
-            System.out.println(semester);
+            //System.out.println(results.getString(2));
+            //System.out.println(semester);
             while (results.next()) {
             	if(semester.equals(results.getString(2))){
             		courses.getItems().add(new CourseInfo(results.getString(3), results.getString(4), results.getString(7), results.getString(5), results.getString(6)));
@@ -113,7 +113,7 @@ public class CourseListController {
 	public void importVariables(MainController main) throws ClassNotFoundException, FileNotFoundException, SQLException {
 		this.main = main;
 		this.semester = main.selectedSemester;
-		System.out.println("Importing variables");
+		//System.out.println("Importing variables");
 		chooseSemester();
 	}
 
