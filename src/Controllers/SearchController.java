@@ -71,7 +71,7 @@ public class SearchController {
 
 	@FXML
 	ChoiceBox<String> subjectSelector;
-	
+
 	CourseListController courseList;
 
 	 List<String> subjects = new ArrayList<>(Arrays.asList("Select a subject", "AFRI: Africana Studies", "AMST: American Studies",
@@ -139,7 +139,7 @@ public class SearchController {
         String prof = new String();
         String ctitle = new String();
         String cnum = new String();
-        
+
         if (courseTime.isSelected()){
 			ctime = subjectSelector.getSelectionModel().getSelectedItem();
 		}
@@ -159,13 +159,14 @@ public class SearchController {
 		if(courseNumber.isSelected()){
 			cnum = courseNumberText.getText();
 		}
-		
+
 		courseList.courses.getItems().clear();
-		
+
 		if (stat.execute(exe.executeinfo(ctime, sub, prof, ctitle, cnum))) {
 			ResultSet results = stat.getResultSet();
 	        while (results.next()) {
-	        	courseList.courses.getItems().add(new CourseInfo(results.getString(2), results.getString(3), results.getString(6), results.getString(4), results.getString(5)));
+	        	courseList.courses.getItems().add(new CourseInfo(results.getString(3), results.getString(4),
+	        			results.getString(7), results.getString(5), results.getString(6), results.getString(8)));
 	        }
 		}
 
