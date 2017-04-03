@@ -1,10 +1,15 @@
 package Controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -13,7 +18,17 @@ import javafx.stage.Stage;
 public class MainController {
 
 	@FXML
+	ChoiceBox semesterSelector;
+
+	List<String> semesters = new ArrayList<>(Arrays.asList("Fall", "Spring", "Summer"));
+
+	@FXML
 	public void initialize(){
+		for(String semester: semesters){
+			semesterSelector.getItems().add(semester);
+		}
+		semesterSelector.getSelectionModel().select(0);
+
 
 	}
 
