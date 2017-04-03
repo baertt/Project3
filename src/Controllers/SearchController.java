@@ -101,19 +101,6 @@ public class SearchController {
 		courseTimeSelector.getSelectionModel().select(0);
 	}
 
-	public boolean isValidFastSearchNum(){
-		fastSearchNumberText.setStyle("-fx-border-color: white;");
-		try{
-			int num = Integer.parseInt(fastSearchNumberText.getText());
-			if(num >= 1000 && num < 100000){
-				return true;
-			}
-		} catch(Exception a){
-			return false;
-		}
-		return true;
-	}
-
 
 	// Citation #1
 	@FXML
