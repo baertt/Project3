@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.io.FileNotFoundException;
+import java.sql.*;
 
 import dataBaseConstructor.ConstructDatabase;
+import dataBaseConstructor.ConstructJson;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +22,7 @@ import javafx.stage.Stage;
 
 public class CourseListController {
 
+	int columns = 6;
 	@FXML
 	TableView<CourseInfo> courses;
 	@FXML
@@ -33,7 +37,7 @@ public class CourseListController {
 	TableColumn<TableView<CourseInfo>, String> time;
 
 	@FXML
-	public void initialize() throws ClassNotFoundException, SQLException{
+	public void initialize() throws ClassNotFoundException, SQLException, FileNotFoundException{
 		code.setCellValueFactory(new PropertyValueFactory<>("code"));
 		title.setCellValueFactory(new PropertyValueFactory<>("title"));
 		prof.setCellValueFactory(new PropertyValueFactory<>("prof"));
@@ -69,12 +73,23 @@ public class CourseListController {
 	}
 
 
-	public void populate() throws ClassNotFoundException, SQLException{
+	public void populate() throws ClassNotFoundException, SQLException, FileNotFoundException{
+		/*ConstructJson file = new ConstructJson();
+		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202016%20and%20TermCode%20eq%20%271S%27&$orderby=CourseId%20asc", "sample");
 		ConstructDatabase db = new ConstructDatabase();
-		db.Construct("sample.db");
+		db.Construct("sample");*/
 		Class.forName("org.sqlite.JDBC");
         Connection con = DriverManager.getConnection("jdbc:sqlite:sample.db");
         Statement stat = con.createStatement();
+        if (stat.execute("select * from course")) {
+            ResultSet results = stat.getResultSet();
+            while (results.next()) {
+                for (int c = 1; c <= columns; ++c) {
+                    System.out.println(results.getString(c) + "\t");
+                }
+               // System.out.println();
+            }
+        }
 		//courses.getItems().add(arg0)
 	}
 
