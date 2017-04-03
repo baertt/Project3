@@ -79,12 +79,12 @@ public class SearchController {
 				"POLI: Politics", "PSYC: Psychology", "RELI: Religious Studies", "SOCI: Sociology",
 				"SPAN: Spanish", "DANA: Theater Arts & Dance Activity", "TART: Theatre Arts & Dance", "TARA: Theatre Practicum Activity"));
 
-	 List<String> courseTimes = new ArrayList<>(Arrays.asList("Times", "A-1", "A-2", "A-3", "A-4", "A-5", "A-6", "A-7","A-8",
-				"B-1", "B-2", "B-3", "B-4", "B-5",
-				"C-1", "C-2", "C-3", "C-4", "C-5", "C-6", "C-7", "C-8",
-				"D-1", "D-2", "D-3", "D-4", "D-5", "D-6", "D-7", "D-8", "D-9", "D-10",
-				"S-1", "S-2", "S-3",
-				"L-1", "L-2", "L-3", "L-4", "L-5", "L-6"));
+	 List<String> courseTimes = new ArrayList<>(Arrays.asList("Times", "A1", "A2", "A3", "A4", "A5", "A6", "A7","A8",
+				"B1", "B2", "B3", "B4", "B5",
+				"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8",
+				"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10",
+				"S1", "S2", "S3",
+				"L1", "L2", "L3", "L4", "L5", "L-"));
 
 
 
@@ -102,7 +102,7 @@ public class SearchController {
 	}
 
 	public boolean isValidFastSearchNum(){
-		
+
 		return true;
 	}
 
@@ -122,28 +122,28 @@ public class SearchController {
 
 
 	@FXML
-	public void searchFunction(ActionEvent event){
+	public void searchFunction(){
 		if(courseTime.isSelected()){
 			System.out.println("CourseTime");
 		}
-		
+
 		if(subject.isSelected()){
 			System.out.println("Subject");
 		}
-		
+
 		if(professor.isSelected()){
 			System.out.println("Professor");
 		}
-		
+
 		if(courseTitle.isSelected()){
 			System.out.println("CourseTitle");
 		}
-		
+
 		if(courseNumber.isSelected()){
 			System.out.println("CourseNumber");
 		}
 
-		
+
 		Stage stage = (Stage) search.getScene().getWindow();
 		stage.close();
 
