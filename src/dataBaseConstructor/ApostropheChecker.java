@@ -8,7 +8,7 @@ public class ApostropheChecker {
 //		System.out.println(string);
 //		System.out.println(count);
 		String x = string.replaceAll("'", "''");
-		System.out.println(x);
+		//System.out.println(x);
 		return x;
 	}
 }

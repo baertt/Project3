@@ -46,7 +46,7 @@ public class SearchController {
 	CheckBox professor;
 
 	@FXML
-	CheckBox fastSearch;
+	CheckBox courseNumber;
 
 	@FXML
 	CheckBox courseTitle;
@@ -55,7 +55,7 @@ public class SearchController {
 	TextField professorText;
 
 	@FXML
-	TextField fastSearchNumberText;
+	TextField courseNumberText;
 
 	@FXML
 	TextField courseTitleText;
@@ -101,6 +101,14 @@ public class SearchController {
 		courseTimeSelector.getSelectionModel().select(0);
 	}
 
+<<<<<<< HEAD
+=======
+	public boolean isValidFastSearchNum(){
+		
+		return true;
+	}
+
+>>>>>>> master
 
 	// Citation #1
 	@FXML
@@ -118,6 +126,27 @@ public class SearchController {
 
 	@FXML
 	public void searchFunction(ActionEvent event){
+		if(courseTime.isSelected()){
+			System.out.println("CourseTime");
+		}
+		
+		if(subject.isSelected()){
+			System.out.println("Subject");
+		}
+		
+		if(professor.isSelected()){
+			System.out.println("Professor");
+		}
+		
+		if(courseTitle.isSelected()){
+			System.out.println("CourseTitle");
+		}
+		
+		if(courseNumber.isSelected()){
+			System.out.println("CourseNumber");
+		}
+
+		
 		Stage stage = (Stage) search.getScene().getWindow();
 		stage.close();
 
