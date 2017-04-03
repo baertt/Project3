@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -18,20 +19,23 @@
          </font>
       </Label>
       <Button fx:id="search" layoutX="276.0" layoutY="263.0" mnemonicParsing="false" onAction="#searchFunction" text="Search" />
-      <CheckBox layoutX="44.0" layoutY="76.0" mnemonicParsing="false" text="Professor" />
-      <CheckBox layoutX="43.0" layoutY="114.0" mnemonicParsing="false" text="Fast Search Number" />
-      <CheckBox layoutX="43.0" layoutY="151.0" mnemonicParsing="false" text="Course Title" />
-      <CheckBox layoutX="43.0" layoutY="188.0" mnemonicParsing="false" text="Course Time" />
-      <CheckBox layoutX="42.0" layoutY="226.0" mnemonicParsing="false" text="Department" />
-      <ChoiceBox layoutX="179.0" layoutY="222.0" prefWidth="150.0" />
-      <TextField layoutX="180.0" layoutY="72.0" />
-      <TextField layoutX="180.0" layoutY="109.0" />
-      <TextField layoutX="180.0" layoutY="147.0" />
-      <Label layoutX="276.0" layoutY="190.0" prefHeight="15.0" prefWidth="60.0" text="What is this?" textAlignment="CENTER">
+      <CheckBox fx:id="professor" layoutX="44.0" layoutY="76.0" mnemonicParsing="false" text="Professor" />
+      <CheckBox fx:id="fastSearch" layoutX="43.0" layoutY="114.0" mnemonicParsing="false" text="Fast Search Number" />
+      <CheckBox fx:id="courseTitle" layoutX="43.0" layoutY="151.0" mnemonicParsing="false" text="Course Title" />
+      <CheckBox fx:id="courseTime" layoutX="43.0" layoutY="188.0" mnemonicParsing="false" text="Course Time" />
+      <CheckBox fx:id="subject" layoutX="42.0" layoutY="226.0" mnemonicParsing="false" text="Subject" />
+      <ChoiceBox fx:id="subjectSelector" layoutX="179.0" layoutY="222.0" prefWidth="150.0" />
+      <TextField fx:id="professorText" layoutX="180.0" layoutY="72.0" promptText="Ex: Ferrer" />
+      <TextField fx:id="fastSearchNumberText" layoutX="180.0" layoutY="109.0" promptText="Ex: 12345" />
+      <TextField fx:id="courseTitleText" layoutX="180.0" layoutY="147.0" promptText="Ex: Scalable Software" />
+      <ChoiceBox fx:id="courseTimeSelector" layoutX="179.0" layoutY="184.0" prefHeight="25.0" prefWidth="87.0" />
+      <Button fx:id="whatIsThis" layoutX="274.0" layoutY="188.0" mnemonicParsing="false" onAction="#openCourseTimeDescription" style="-fx-background-color: #E8E8E8; -fx-border-color: #E8E8E8;" text="What is this?">
          <font>
-            <Font size="10.0" />
+            <Font size="8.0" />
          </font>
-      </Label>
-      <ChoiceBox layoutX="179.0" layoutY="184.0" prefHeight="25.0" prefWidth="87.0" />
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
