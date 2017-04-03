@@ -1,10 +1,15 @@
 // Citation #1: http://stackoverflow.com/questions/10444722/opening-a-full-web-page-by-using-java
 
 package Controllers;
-
+import dataBaseConstructor.ExecuteInfo;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SearchController {
+	ExecuteInfo exe = new ExecuteInfo();
 
 	@FXML
 	Button search;
@@ -65,6 +71,8 @@ public class SearchController {
 
 	@FXML
 	ChoiceBox<String> subjectSelector;
+	
+	CourseListController courseList;
 
 	 List<String> subjects = new ArrayList<>(Arrays.asList("Select a subject", "AFRI: Africana Studies", "AMST: American Studies",
 				"ANTH: Anthropology", "ARTS: Art", "ARTH: Art History", "ASIA: Asian Studies",
@@ -84,7 +92,7 @@ public class SearchController {
 				"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8",
 				"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10",
 				"S1", "S2", "S3",
-				"L1", "L2", "L3", "L4", "L5", "L-"));
+				"L1", "L2", "L3", "L4", "L5", "L6", "NA"));
 
 
 
@@ -94,7 +102,6 @@ public class SearchController {
 			subjectSelector.getItems().add(subject);
 		}
 		subjectSelector.getSelectionModel().select(0);
-
 		for(String time: courseTimes){
 			courseTimeSelector.getItems().add(time);
 		}
@@ -122,25 +129,44 @@ public class SearchController {
 
 
 	@FXML
-	public void searchFunction(){
-		if(courseTime.isSelected()){
-			System.out.println("CourseTime");
+	public void searchFunction() throws ClassNotFoundException, SQLException, IOException{
+		//System.out.println("OK");
+		Class.forName("org.sqlite.JDBC");
+        Connection con = DriverManager.getConnection("jdbc:sqlite:" + "sample" + ".db");
+        Statement stat = con.createStatement();
+        String ctime = new String();
+        String sub = new String();
+        String prof = new String();
+        String ctitle = new String();
+        String cnum = new String();
+        
+        if (courseTime.isSelected()){
+			ctime = subjectSelector.getSelectionModel().getSelectedItem();
 		}
 
 		if(subject.isSelected()){
-			System.out.println("Subject");
+			sub = subjectSelector.getSelectionModel().getSelectedItem();
 		}
 
 		if(professor.isSelected()){
-			System.out.println("Professor");
+			prof = professorText.getText();
 		}
 
 		if(courseTitle.isSelected()){
-			System.out.println("CourseTitle");
+			ctitle = courseTitleText.getText();
 		}
 
 		if(courseNumber.isSelected()){
-			System.out.println("CourseNumber");
+			cnum = courseNumberText.getText();
+		}
+		
+		courseList.courses.getItems().clear();
+		
+		if (stat.execute(exe.executeinfo(ctime, sub, prof, ctitle, cnum))) {
+			ResultSet results = stat.getResultSet();
+	        while (results.next()) {
+	        	courseList.courses.getItems().add(new CourseInfo(results.getString(2), results.getString(3), results.getString(6), results.getString(4), results.getString(5)));
+	        }
 		}
 
 
@@ -151,5 +177,7 @@ public class SearchController {
 
 	}
 
-
+	public void importVariables(CourseListController courseListController) {
+		this.courseList = courseListController;
+	}
 }

@@ -74,6 +74,9 @@ public class CourseListController {
 			Stage secondStage = new Stage();
 			Scene scene = new Scene(root);
 
+			SearchController search = (SearchController)loader.getController();
+			search.importVariables(this);
+			
 			String url = "https://www.hendrix.edu/uploadedImages/Events_and_News/SHIELD%20web%20page.jpg";
 
 			Image anotherIcon = new Image(url);
@@ -115,3 +118,4 @@ public class CourseListController {
 	}
 
 }
+

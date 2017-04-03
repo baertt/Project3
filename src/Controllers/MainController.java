@@ -32,7 +32,7 @@ public class MainController {
 	public void initialize() throws FileNotFoundException, ClassNotFoundException{
 
 		ConstructJson file = new ConstructJson();
-		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202016%20and%20TermCode%20eq%20%271S%27&$orderby=CourseId%20asc", "sample");
+		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202017%20&$orderby=CourseId%20asc", "sample");
 		ConstructDatabase db = new ConstructDatabase();
 		db.Construct("sample");
 		for(String semester: semesters){
