@@ -37,6 +37,9 @@ public class CourseListController {
 	TableColumn<TableView<CourseInfo>, String> time;
 
 	@FXML
+	MainController main;
+
+	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException, FileNotFoundException{
 		code.setCellValueFactory(new PropertyValueFactory<>("code"));
 		title.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -56,6 +59,9 @@ public class CourseListController {
 			Stage secondStage = new Stage();
 			Scene scene = new Scene(root);
 
+			SearchController search = (SearchController)loader.getController();
+			search.importVariables(this);
+			
 			String url = "https://www.hendrix.edu/uploadedImages/Events_and_News/SHIELD%20web%20page.jpg";
 
 			Image anotherIcon = new Image(url);
@@ -80,13 +86,14 @@ public class CourseListController {
         if (stat.execute("select * from course")) {
             ResultSet results = stat.getResultSet();
             while (results.next()) {
-                for (int c = 1; c <= columns; ++c) {
-                    System.out.println(results.getString(c) + "\t");
-                }
-               // System.out.println();
+            	courses.getItems().add(new CourseInfo(results.getString(2), results.getString(3), results.getString(6), results.getString(4), results.getString(5)));
             }
         }
-		//courses.getItems().add(arg0)
+	}
+
+	public void importVariables(MainController main) {
+		this.main = main;
 	}
 
 }
+

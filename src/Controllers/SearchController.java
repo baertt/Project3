@@ -1,10 +1,15 @@
 // Citation #1: http://stackoverflow.com/questions/10444722/opening-a-full-web-page-by-using-java
 
 package Controllers;
-
+import dataBaseConstructor.ExecuteInfo;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SearchController {
+	ExecuteInfo exe = new ExecuteInfo();
 
 	@FXML
 	Button search;
@@ -65,6 +71,8 @@ public class SearchController {
 
 	@FXML
 	ChoiceBox<String> subjectSelector;
+	
+	CourseListController courseList;
 
 	 List<String> subjects = new ArrayList<>(Arrays.asList("Select a subject", "AFRI: Africana Studies", "AMST: American Studies",
 				"ANTH: Anthropology", "ARTS: Art", "ARTH: Art History", "ASIA: Asian Studies",
@@ -79,12 +87,12 @@ public class SearchController {
 				"POLI: Politics", "PSYC: Psychology", "RELI: Religious Studies", "SOCI: Sociology",
 				"SPAN: Spanish", "DANA: Theater Arts & Dance Activity", "TART: Theatre Arts & Dance", "TARA: Theatre Practicum Activity"));
 
-	 List<String> courseTimes = new ArrayList<>(Arrays.asList("Times", "A-1", "A-2", "A-3", "A-4", "A-5", "A-6", "A-7","A-8",
-				"B-1", "B-2", "B-3", "B-4", "B-5",
-				"C-1", "C-2", "C-3", "C-4", "C-5", "C-6", "C-7", "C-8",
-				"D-1", "D-2", "D-3", "D-4", "D-5", "D-6", "D-7", "D-8", "D-9", "D-10",
-				"S-1", "S-2", "S-3",
-				"L-1", "L-2", "L-3", "L-4", "L-5", "L-6"));
+	 List<String> courseTimes = new ArrayList<>(Arrays.asList("Times", "A1", "A2", "A3", "A4", "A5", "A6", "A7","A8",
+				"B1", "B2", "B3", "B4", "B5",
+				"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8",
+				"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10",
+				"S1", "S2", "S3",
+				"L1", "L2", "L3", "L4", "L5", "L6", "NA"));
 
 
 
@@ -94,21 +102,11 @@ public class SearchController {
 			subjectSelector.getItems().add(subject);
 		}
 		subjectSelector.getSelectionModel().select(0);
-
 		for(String time: courseTimes){
 			courseTimeSelector.getItems().add(time);
 		}
 		courseTimeSelector.getSelectionModel().select(0);
 	}
-
-<<<<<<< HEAD
-=======
-	public boolean isValidFastSearchNum(){
-		
-		return true;
-	}
-
->>>>>>> master
 
 	// Citation #1
 	@FXML
@@ -125,25 +123,44 @@ public class SearchController {
 
 
 	@FXML
-	public void searchFunction(ActionEvent event){
+	public void searchFunction() throws ClassNotFoundException, SQLException, IOException{
+		//System.out.println("OK");
+		Class.forName("org.sqlite.JDBC");
+        Connection con = DriverManager.getConnection("jdbc:sqlite:" + "sample" + ".db");
+        Statement stat = con.createStatement();
+        String ctime = new String();
+        String sub = new String();
+        String prof = new String();
+        String ctitle = new String();
+        String cnum = new String();
+        
 		if(courseTime.isSelected()){
-			System.out.println("CourseTime");
+			ctime = subjectSelector.getSelectionModel().getSelectedItem();
 		}
 		
 		if(subject.isSelected()){
-			System.out.println("Subject");
+			sub = subjectSelector.getSelectionModel().getSelectedItem();
 		}
 		
 		if(professor.isSelected()){
-			System.out.println("Professor");
+			prof = professorText.getText();
 		}
 		
 		if(courseTitle.isSelected()){
-			System.out.println("CourseTitle");
+			ctitle = courseTitleText.getText();
 		}
 		
 		if(courseNumber.isSelected()){
-			System.out.println("CourseNumber");
+			cnum = courseNumberText.getText();
+		}
+		
+		courseList.courses.getItems().clear();
+		
+		if (stat.execute(exe.executeinfo(ctime, sub, prof, ctitle, cnum))) {
+			ResultSet results = stat.getResultSet();
+	        while (results.next()) {
+	        	courseList.courses.getItems().add(new CourseInfo(results.getString(2), results.getString(3), results.getString(6), results.getString(4), results.getString(5)));
+	        }
 		}
 
 		
@@ -154,5 +171,7 @@ public class SearchController {
 
 	}
 
-
+	public void importVariables(CourseListController courseListController) {
+		this.courseList = courseListController;
+	}
 }
