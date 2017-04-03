@@ -7,6 +7,7 @@ import dataBaseConstructor.ConstructJson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,22 +20,25 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MainController {
+	@FXML
+	ChoiceBox<String> semesterSelector;
+
+	List<String> semesters = new ArrayList<>(Arrays.asList("Fall", "Spring", "Summer"));
 
 	@FXML
 	public void initialize() throws FileNotFoundException, ClassNotFoundException{
+		System.out.println("Making Database");
 		ConstructJson file = new ConstructJson();
 		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202016%20and%20TermCode%20eq%20%271S%27&$orderby=CourseId%20asc", "sample");
 		ConstructDatabase db = new ConstructDatabase();
 		db.Construct("sample");
+		System.out.println("Database made");
 		for(String semester: semesters){
 			semesterSelector.getItems().add(semester);
 		}
 		semesterSelector.getSelectionModel().select(0);
 	}
 
-	ChoiceBox semesterSelector;
-
-	List<String> semesters = new ArrayList<>(Arrays.asList("Fall", "Spring", "Summer"));
 
 
 	@FXML
@@ -46,6 +50,9 @@ public class MainController {
 
 			Stage secondStage = new Stage();
 			Scene scene = new Scene(root);
+
+			CourseListController courseList = (CourseListController)loader.getController();
+			courseList.importVariables(this);
 
 			String url = "https://www.hendrix.edu/uploadedImages/Events_and_News/SHIELD%20web%20page.jpg";
 

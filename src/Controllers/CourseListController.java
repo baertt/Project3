@@ -37,6 +37,9 @@ public class CourseListController {
 	TableColumn<TableView<CourseInfo>, String> time;
 
 	@FXML
+	MainController main;
+
+	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException, FileNotFoundException{
 		code.setCellValueFactory(new PropertyValueFactory<>("code"));
 		title.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -74,23 +77,19 @@ public class CourseListController {
 
 
 	public void populate() throws ClassNotFoundException, SQLException, FileNotFoundException{
-		/*ConstructJson file = new ConstructJson();
-		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202016%20and%20TermCode%20eq%20%271S%27&$orderby=CourseId%20asc", "sample");
-		ConstructDatabase db = new ConstructDatabase();
-		db.Construct("sample");*/
 		Class.forName("org.sqlite.JDBC");
         Connection con = DriverManager.getConnection("jdbc:sqlite:sample.db");
         Statement stat = con.createStatement();
         if (stat.execute("select * from course")) {
             ResultSet results = stat.getResultSet();
             while (results.next()) {
-                for (int c = 1; c <= columns; ++c) {
-                    System.out.println(results.getString(c) + "\t");
-                }
-               // System.out.println();
+            	courses.getItems().add(new CourseInfo(results.getString(2), results.getString(3), results.getString(6), results.getString(4), results.getString(5)));
             }
         }
-		//courses.getItems().add(arg0)
+	}
+
+	public void importVariables(MainController main) {
+		this.main = main;
 	}
 
 }
