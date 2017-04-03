@@ -34,13 +34,13 @@ public class CourseListController {
 
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException{
-		code.setCellValueFactory(new PropertyValueFactory<>("code"));
+		/*code.setCellValueFactory(new PropertyValueFactory<>("code"));
 		title.setCellValueFactory(new PropertyValueFactory<>("title"));
 		prof.setCellValueFactory(new PropertyValueFactory<>("prof"));
 		period.setCellValueFactory(new PropertyValueFactory<>("period"));
 		time.setCellValueFactory(new PropertyValueFactory<>("time"));
 		populate();
-	}
+*/	}
 
 	@FXML
 	public void openSearch(){

@@ -131,6 +131,27 @@ public class SearchController {
 
 	@FXML
 	public void searchFunction(ActionEvent event){
+		if(courseTime.isSelected()){
+			System.out.println("CourseTime");
+		}
+		
+		if(subject.isSelected()){
+			System.out.println("Subject");
+		}
+		
+		if(professor.isSelected()){
+			System.out.println("Professor");
+		}
+		
+		if(fastSearch.isSelected()){
+			System.out.println("FastSearch");
+		}
+		
+		if(courseTitle.isSelected()){
+			System.out.println("CourseTitle");
+		}
+
+		
 		Stage stage = (Stage) search.getScene().getWindow();
 		stage.close();
 
