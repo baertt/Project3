@@ -20,13 +20,15 @@ import javafx.stage.Stage;
 
 public class MainController {
 
-	@FXML
-	ChoiceBox<String> semesterSelector;
-
 	List<String> semesters = new ArrayList<>(Arrays.asList("Fall", "Spring", "Summer"));
 
 	@FXML
+	ChoiceBox<String> semesterSelector;
+
+
+	@FXML
 	public void initialize() throws FileNotFoundException, ClassNotFoundException{
+
 		ConstructJson file = new ConstructJson();
 		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202016%20and%20TermCode%20eq%20%271S%27&$orderby=CourseId%20asc", "sample");
 		ConstructDatabase db = new ConstructDatabase();
@@ -36,8 +38,6 @@ public class MainController {
 		}
 		semesterSelector.getSelectionModel().select(0);
 	}
-
-
 
 	@FXML
 	public void openCourseList(){
