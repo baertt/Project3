@@ -5,17 +5,17 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="504.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CourseListController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CourseListController">
    <children>
-      <TableView fx:id="courses" prefHeight="411.0" prefWidth="504.0">
+      <TableView fx:id="courses" prefHeight="411.0" prefWidth="740.0">
         <columns>
-          <TableColumn fx:id="code" prefWidth="75.0" text="Course Code" />
-            <TableColumn fx:id="title" prefWidth="75.0" text="Course Name" />
-            <TableColumn fx:id="prof" prefWidth="75.0" text="Professor" />
-            <TableColumn fx:id="period" prefWidth="75.0" text="Period" />
-            <TableColumn fx:id="time" prefWidth="75.0" text="Time" />
+          <TableColumn fx:id="code" prefWidth="126.0" text="Course Code" />
+            <TableColumn fx:id="title" prefWidth="238.0" text="Course Name" />
+            <TableColumn fx:id="prof" prefWidth="126.0" text="Professor" />
+            <TableColumn fx:id="period" prefWidth="126.0" text="Period" />
+            <TableColumn fx:id="time" prefWidth="126.0" text="Time" />
         </columns>
       </TableView>
-      <Button layoutX="223.0" layoutY="417.0" mnemonicParsing="false" onAction="#openSearch" text="Filter" />
+      <Button layoutX="349.0" layoutY="418.0" mnemonicParsing="false" onAction="#openSearch" text="Filter" />
    </children>
 </Pane>
