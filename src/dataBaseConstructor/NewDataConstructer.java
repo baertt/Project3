@@ -38,4 +38,21 @@ public class NewDataConstructer {
 		}
 		return ins_out;
 	}
+	
+	public String collegiateCode(List<?> cocode) {
+		String code = "";
+		if (cocode == null) {
+			return "NA";
+		} else {
+			for (int i = 0; i < cocode.size(); i++) {
+				if (i + 1 == cocode.size()) {
+					code = code + cocode.get(i).toString();
+				} else {
+					code = code + cocode.get(i).toString() + "/";
+				}
+			}
+			System.out.println(code);
+			return code;
+		}
+	}
 }

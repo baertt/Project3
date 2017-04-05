@@ -64,6 +64,7 @@ public class CourseListController {
 		else if(semester.equals("Spring")) populate("2S");
 		else{populate("3S");}
 	}
+	
 	@FXML
 	public void openSearch(){
 		try {

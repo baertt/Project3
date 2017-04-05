@@ -2,6 +2,8 @@
 
 package Controllers;
 import dataBaseConstructor.ExecuteInfo;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -73,6 +75,10 @@ public class SearchController {
 	ChoiceBox<String> subjectSelector;
 	
 	CourseListController courseList;
+	
+	String semester;
+	
+//	String trans;
 
 	 List<String> subjects = new ArrayList<>(Arrays.asList("Select a subject", "AFRI: Africana Studies", "AMST: American Studies",
 				"ANTH: Anthropology", "ARTS: Art", "ARTH: Art History", "ASIA: Asian Studies",
@@ -131,9 +137,7 @@ public class SearchController {
 	@FXML
 	public void searchFunction() throws ClassNotFoundException, SQLException, IOException{
 		//System.out.println("OK");
-		Class.forName("org.sqlite.JDBC");
-        Connection con = DriverManager.getConnection("jdbc:sqlite:" + "sample" + ".db");
-        Statement stat = con.createStatement();
+		
         String ctime = new String();
         String sub = new String();
         String prof = new String();
@@ -161,15 +165,9 @@ public class SearchController {
 		}
 		
 		courseList.courses.getItems().clear();
+		System.out.println(this.semester);
 		
-		if (stat.execute(exe.executeinfo(ctime, sub, prof, ctitle, cnum))) {
-			ResultSet results = stat.getResultSet();
-	        while (results.next()) {
-	        	courseList.courses.getItems().add(new CourseInfo(results.getString(3), results.getString(4), results.getString(5), results.getString(7), results.getString(6)));
-	        }
-		}
-
-
+		populate(ctime, sub, prof, ctitle, cnum, transfer(this.semester));
 		Stage stage = (Stage) search.getScene().getWindow();
 		stage.close();
 
@@ -177,7 +175,31 @@ public class SearchController {
 
 	}
 
+	@FXML
+	private void populate(String ctime, String sub, String prof, String ctitle, String cnum, String semester) throws ClassNotFoundException, SQLException {
+		Class.forName("org.sqlite.JDBC");
+        Connection con = DriverManager.getConnection("jdbc:sqlite:" + "sample" + ".db");
+        Statement stat = con.createStatement();
+        if (stat.execute(exe.executeinfo(ctime, sub, prof, ctitle, cnum))) {
+			ResultSet results = stat.getResultSet();
+	        while (results.next()) {
+	        	if (semester.equals(results.getString(2))) {
+	        		courseList.courses.getItems().add(new CourseInfo(results.getString(3), results.getString(4), results.getString(5), results.getString(7), results.getString(6)));
+	        	}
+	        }
+		}
+        System.out.println("OK");
+	}
+	
 	public void importVariables(CourseListController courseListController) {
 		this.courseList = courseListController;
+		this.semester = courseListController.semester;
+		System.out.println("Importing variables");
+	}
+	
+	private String transfer(String semester) {
+		if(semester.equals("Fall")) return("1S");
+		else if(semester.equals("Spring")) return("2S");
+		else{return("3S");}
 	}
 }

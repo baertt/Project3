@@ -4,13 +4,26 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.Pane?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="504.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
    <children>
       <Button layoutX="205.0" layoutY="414.0" mnemonicParsing="false" onAction="#openCourseList" text="Add/Change" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutY="4.0" prefHeight="20.0" prefWidth="504.0" text="Your Current Schedule:" textAlignment="CENTER" />
-      <ListView layoutY="81.0" prefHeight="319.0" prefWidth="504.0" />
-      <ChoiceBox fx:id="semesterSelector" layoutX="177.0" layoutY="41.0" prefWidth="150.0" />
+      <ListView layoutY="113.0" prefHeight="287.0" prefWidth="504.0" />
+      <ChoiceBox fx:id="semesterSelector" layoutX="177.0" layoutY="75.0" prefWidth="150.0" />
+      <MenuBar layoutY="32.0" prefHeight="29.0" prefWidth="504.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Schedule...">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Create..." />
+                  <MenuItem mnemonicParsing="false" text="Open..." />
+               </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </Pane>
