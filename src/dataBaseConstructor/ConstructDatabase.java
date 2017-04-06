@@ -83,9 +83,50 @@ public class ConstructDatabase {
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
 		stat.execute("create table user (ProjectName string, ProjectId string)");
-		stat.execute("create table schedule (ProjectId string, Courses string)");
+		stat.execute("create table schedule (ProjectId string, CourseId integer)");
+		
 	}
+	
+	public void addCourseInfo() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, ParseException {
+		JSONParser parser=new JSONParser();
+		Class.forName("org.sqlite.JDBC");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
+		Statement stat = con.createStatement();
+		Object obj = parser.parse(new FileReader(Integer.toString(newdata.year()) + ".json"));
+		JSONObject json_obj = (JSONObject) obj;
+		stat.execute("drop table if exists course");
+		stat.execute("create table course (CourseId integer, TermCode string, CourseCode string, Title string, Period string, Schedule string, Instructors string, Description string, CollegiateCode string)");
+		List<?> x = (List<?>) json_obj.get("value");
+		for (int i = 0; i < x.size(); i++) {
+//			System.out.println(x.get(i));
+			String des = new String();
+			HashMap<?, ?> y = (HashMap<?, ?>) x.get(i);
+			if (y.get("Description") == null) {
+				des = "None";
+			} else {
+				des = y.get("Description").toString().trim();
+			}
+			List<?> schedule = (List<?>) y.get("Schedule");
+			List<?> instructors = (List<?>) y.get("Instructors");
+			List<?> collegiate = (List<?>) y.get("CollegiateCode");
+		//	System.out.println(i);
+//			System.out.println(y.get("CourseId"));
+//			System.out.println(y.get("Title"));
 
+			stat.execute("insert into course values("
+			+ y.get("CourseId").toString().trim()
+			+ ", '" + y.get("TermCode").toString().trim() + "'"
+			+ ", '" + y.get("CourseCode").toString().trim() + "'"
+			+ ", '" + apos.remodify(y.get("Title").toString().trim()) + "'"
+			+ ", '" + y.get("Period").toString().trim() + "'"
+			+ ", '" + newdata.newschedule(schedule) + "'"
+			+ ", '" + apos.remodify(newdata.instructor(instructors)) + "'"
+			+ ", '" + apos.remodify(des) + "'"
+			+ ", '" + newdata.collegiateCode(collegiate) + "'"
+			+ ")");
+		}
+	}
+	
 	public void addUserInfo(String projectname) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
@@ -95,14 +136,14 @@ public class ConstructDatabase {
 				+ ", '" + newdata.ID() + "'"
 				+ ")");
 	}
-
-	public void addSchedule(String id, String courses) throws ClassNotFoundException, SQLException {
+	
+	public void addSchedule(String id, String courseid) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
 		stat.execute("insert into user values("
 				+ ", '" + id + "'"
-				+ ", '" + courses + "'"
+				+ ", '" + courseid + "'"
 				+ ")");
 	}
 }
