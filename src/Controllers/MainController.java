@@ -45,7 +45,7 @@ public class MainController {
 	public void openCourseList(){
 		try {
 			selectedSemester = semesterSelector.getSelectionModel().getSelectedItem();
-			System.out.println(selectedSemester);
+			//System.out.println(selectedSemester);
 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(GuiMain.class.getResource("CourseList.fxml"));
