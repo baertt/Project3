@@ -95,13 +95,8 @@ public class ConstructDatabase {
 				+ ", '" + newdata.ID() + "'"
 				+ ")");
 	}
-<<<<<<< HEAD
 	
 	public void addSchedule(String id, String courseid) throws ClassNotFoundException, SQLException {
-=======
-
-	public void addSchedule(String id, String courses) throws ClassNotFoundException, SQLException {
->>>>>>> master
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
