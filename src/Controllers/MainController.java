@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import dataBaseConstructor.ConstructDatabase;
@@ -10,6 +11,8 @@ import dataBaseConstructor.NewDataConstructer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.json.simple.parser.ParseException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -86,12 +89,14 @@ public class MainController {
 	}
 	
 	@FXML
-	void create() throws ClassNotFoundException, SQLException {
+	void create() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, ParseException {
 		FileChecker fileChecker = new FileChecker();
 		if (fileChecker.fileChecker(Integer.toString(newdata.year()))) {
 			db.ConstructUserInfo();
+			db.addCourseInfo();
 		} else {
 			db.addUserInfo("OK");
+			db.addCourseInfo();
 		}
 	}
 

@@ -94,6 +94,7 @@ public class ConstructDatabase {
 		Statement stat = con.createStatement();
 		Object obj = parser.parse(new FileReader(Integer.toString(newdata.year()) + ".json"));
 		JSONObject json_obj = (JSONObject) obj;
+		stat.execute("drop table if exists course");
 		stat.execute("create table course (CourseId integer, TermCode string, CourseCode string, Title string, Period string, Schedule string, Instructors string, Description string, CollegiateCode string)");
 		List<?> x = (List<?>) json_obj.get("value");
 		for (int i = 0; i < x.size(); i++) {
