@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import dataBaseConstructor.ConstructDatabase;
 import dataBaseConstructor.ConstructJson;
+import dataBaseConstructor.NewDataConstructer;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.collections.*;
@@ -22,6 +23,7 @@ import javafx.util.Duration;
 
 
 public class GuiMain extends Application {
+	NewDataConstructer newdata = new NewDataConstructer();
     public static final String APPLICATION_ICON =
             "https://www.hendrix.edu/uploadedImages/Events_and_News/SHIELD%20web%20page.jpg";
     public static final String SPLASH_IMAGE =
@@ -77,11 +79,10 @@ public class GuiMain extends Application {
                                 "Building the course schedule"
                         );
 
-
         		ConstructJson file = new ConstructJson();
-        		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202017%20&$orderby=CourseId%20asc", "sample");
+        		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%20" + Integer.toString(newdata.year()) +"%20&$orderby=CourseId%20asc", Integer.toString(newdata.year()));
         		ConstructDatabase db = new ConstructDatabase();
-        		db.Construct("sample");
+        		db.Construct(Integer.toString(newdata.year()));
                 updateMessage("Ready to begin planning your year.");
 
                 return seenMessages;

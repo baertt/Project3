@@ -83,7 +83,7 @@ public class ConstructDatabase {
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
 		stat.execute("create table user (ProjectName string, ProjectId string)");
-		stat.execute("create table schedule (ProjectId string, Courses string)");
+		stat.execute("create table schedule (ProjectId string, CourseId integer)");
 	}
 	
 	public void addUserInfo(String projectname) throws ClassNotFoundException, SQLException {
@@ -96,13 +96,13 @@ public class ConstructDatabase {
 				+ ")");
 	}
 	
-	public void addSchedule(String id, String courses) throws ClassNotFoundException, SQLException {
+	public void addSchedule(String id, String courseid) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
 		stat.execute("insert into user values("
 				+ ", '" + id + "'"
-				+ ", '" + courses + "'"
+				+ ", '" + courseid + "'"
 				+ ")");
 	}
 }
