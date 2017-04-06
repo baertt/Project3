@@ -77,7 +77,7 @@ public class ConstructDatabase {
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
 	public void ConstructUserInfo() throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
@@ -85,7 +85,7 @@ public class ConstructDatabase {
 		stat.execute("create table user (ProjectName string, ProjectId string)");
 		stat.execute("create table schedule (ProjectId string, Courses string)");
 	}
-	
+
 	public void addUserInfo(String projectname) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
@@ -95,7 +95,7 @@ public class ConstructDatabase {
 				+ ", '" + newdata.ID() + "'"
 				+ ")");
 	}
-	
+
 	public void addSchedule(String id, String courses) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");

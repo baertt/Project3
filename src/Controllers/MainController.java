@@ -29,16 +29,8 @@ public class MainController {
 	String selectedSemester;
 
 	@FXML
-	public void initialize() throws FileNotFoundException, ClassNotFoundException{
+	public void initialize() {
 
-		ConstructJson file = new ConstructJson();
-		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202017%20&$orderby=CourseId%20asc", "sample");
-		ConstructDatabase db = new ConstructDatabase();
-		db.Construct("sample");
-		for(String semester: semesters){
-			semesterSelector.getItems().add(semester);
-		}
-		semesterSelector.getSelectionModel().select(0);
 	}
 
 	@FXML
