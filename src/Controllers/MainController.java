@@ -30,6 +30,11 @@ public class MainController {
 
 	@FXML
 	public void initialize() {
+		List<String> semesters = new ArrayList<>(Arrays.asList("Spring", "Summer", "Fall"));
+        for(String semester: semesters){
+			semesterSelector.getItems().add(semester);
+		}
+		semesterSelector.getSelectionModel().select(2);
 
 	}
 
@@ -53,12 +58,11 @@ public class MainController {
 
 			Image anotherIcon = new Image(url);
 	        secondStage.getIcons().add(anotherIcon);
-	        secondStage.setTitle("  Hendrix College: 2017 - 2018 Course Selector");
+	        secondStage.setTitle("  Hendrix College: Course Selector");
 
 			secondStage.setScene(scene);
 			secondStage.show();
 		} catch (Exception exc) {
-			exc.printStackTrace();
 			Alert r = new Alert(AlertType.NONE, "Cannot open Course List." , ButtonType.OK);
 			r.setTitle("ERROR");
 			r.showAndWait();

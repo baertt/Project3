@@ -1,7 +1,18 @@
+// Splash screen provided by: https://gist.github.com/jewelsea/2305098
+
 package Controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import dataBaseConstructor.ConstructDatabase;
 import dataBaseConstructor.ConstructJson;
@@ -13,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
@@ -72,17 +84,18 @@ public class GuiMain extends Application {
                         FXCollections.<String>observableArrayList();
                 ObservableList<String> messages =
                         FXCollections.observableArrayList(
-                                "Setting things up",
-                                "Planning for next year",
-                                "Building the course schedule"
+                                "Setting things up. . .",
+                                "Planning for next year. . .",
+                                "Building the course schedule. . .",
+                                "Preparing the scheduler. . .",
+                                "Ready to plan your year?"
                         );
-
-
-        		ConstructJson file = new ConstructJson();
-        		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202017%20&$orderby=CourseId%20asc", "sample");
-        		ConstructDatabase db = new ConstructDatabase();
-        		db.Construct("sample");
-                updateMessage("Ready to begin planning your year.");
+                for(int i = 0; i < messages.size(); i++){
+                	TimeUnit.SECONDS.sleep(2);
+                	updateMessage(messages.get(i));
+                }
+                
+                constructDB();
 
                 return seenMessages;
             }
@@ -106,20 +119,27 @@ public class GuiMain extends Application {
         main = new Stage();
 		Pane root = (Pane) FXMLLoader.load(getClass().getResource("Main_Ver2.fxml"));
 
-        main.setTitle("  Hendrix College: 2017 - 2018 Course Selector");
+        main.setTitle("  Hendrix College: Course Selector");
 
 		Scene scene = new Scene(root, 504, 455);
 		main.setScene(scene);
 		main.show();
 
 
-        main.setTitle("  Hendrix College: 2017 - 2018 Course Selector");
+        main.setTitle("  Hendrix College: Course Selector");
         main.getIcons().add(new Image(APPLICATION_ICON));
-
+        
         main.setScene(scene);
         main.show();
     }
 
+    private void constructDB() throws FileNotFoundException, ClassNotFoundException{
+    	ConstructJson file = new ConstructJson();
+		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202017%20&$orderby=CourseId%20asc", "sample");
+		ConstructDatabase db = new ConstructDatabase();
+		db.Construct("sample");
+    }
+    
     private void showSplash(
             final Stage initStage,
             Task<?> task,
