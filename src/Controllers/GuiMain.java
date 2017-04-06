@@ -1,6 +1,10 @@
 package Controllers;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import dataBaseConstructor.ConstructDatabase;
+import dataBaseConstructor.ConstructJson;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.collections.*;
@@ -63,7 +67,7 @@ public class GuiMain extends Application {
     public void start(final Stage initStage) throws Exception {
         Task<ObservableList<String>> loadProgram = new Task<ObservableList<String>>() {
             @Override
-            protected ObservableList<String> call() throws InterruptedException {
+            protected ObservableList<String> call() throws InterruptedException, FileNotFoundException, ClassNotFoundException {
                 ObservableList<String> seenMessages =
                         FXCollections.<String>observableArrayList();
                 ObservableList<String> messages =
@@ -73,14 +77,11 @@ public class GuiMain extends Application {
                                 "Building the course schedule"
                         );
 
-                for (int i = 0; i < messages.size(); i++) {
-                    Thread.sleep(1000);
-                    updateProgress(i + 1, messages.size());
-                    String nextFriend = messages.get(i);
-                    seenMessages.add(nextFriend);
-                    updateMessage("Hendrix College. . . " + nextFriend);
-                }
-                Thread.sleep(400);
+
+        		ConstructJson file = new ConstructJson();
+        		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202017%20&$orderby=CourseId%20asc", "sample");
+        		ConstructDatabase db = new ConstructDatabase();
+        		db.Construct("sample");
                 updateMessage("Ready to begin planning your year.");
 
                 return seenMessages;
