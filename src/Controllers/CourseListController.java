@@ -64,9 +64,11 @@ public class CourseListController {
 	public void chooseSemester() throws ClassNotFoundException, FileNotFoundException, SQLException{
 		//semester = main.selectedSemester;
 
-		if(semester.equals("Fall")) populate("1S");
-		else if(semester.equals("Spring")) populate("2S");
-		else{populate("3S");}
+		if(semester.equals("Fall")) semester = "1S";
+		else if(semester.equals("Spring")) semester = "2S";
+		else{semester = "3S";}
+
+		populate(semester);
 	}
 	@FXML
 	public void openSearch(){
@@ -116,8 +118,6 @@ public class CourseListController {
 	@FXML
 	public void viewCourse(){
 		try {
-
-
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(GuiMain.class.getResource("Decided.fxml"));
 			Pane root = (Pane) loader.load();
