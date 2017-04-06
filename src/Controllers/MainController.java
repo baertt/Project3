@@ -41,11 +41,16 @@ public class MainController {
 	String selectedSemester;
 
 	@FXML
+<<<<<<< HEAD
 	public void initialize() throws FileNotFoundException, ClassNotFoundException{
 		for(String semester: semesters){
 			semesterSelector.getItems().add(semester);
 		}
 		semesterSelector.getSelectionModel().select(0);
+=======
+	public void initialize() {
+
+>>>>>>> master
 	}
 
 	@FXML
