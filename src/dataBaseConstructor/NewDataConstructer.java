@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class NewDataConstructer {
+	static final int pickcourse = 4;
 	public String newschedule(List<?> schedule) {
 		if (schedule.size() == 0) {
 			return "TBD";
@@ -67,5 +68,10 @@ public class NewDataConstructer {
 		String id = Integer.toString(year) + Integer.toString(month) + Integer.toString(day) + Integer.toString(hr) + Integer.toString(min) + Integer.toString(sec);
 		System.out.println(id);
 		return id;
+	}
+	
+	public int year() {
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		return year;
 	}
 }
