@@ -2,6 +2,7 @@
 
 package Controllers;
 import dataBaseConstructor.ExecuteInfo;
+import dataBaseConstructor.NewDataConstructer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SearchController {
+	NewDataConstructer newdata = new NewDataConstructer();
 	ExecuteInfo exe = new ExecuteInfo();
 
 	@FXML
@@ -171,17 +173,6 @@ public class SearchController {
 		populate(ctime, sub, prof, ctitle, cnum, transfer(this.semester));
 
 
-		if (stat.execute(exe.executeinfo(ctime, sub, prof, ctitle, cnum))) {
-			ResultSet results = stat.getResultSet();
-	        while (results.next()) {
-	        	if(courseList.semester.equals(results.getString(2))){
-	        		courseList.courses.getItems().add(new CourseInfo(results.getString(3), results.getString(4),
-	        				results.getString(7), results.getString(5), results.getString(6), results.getString(8)));
-	        	}
-	        }
-		}
-
-
 		Stage stage = (Stage) search.getScene().getWindow();
 		stage.close();
 
@@ -192,7 +183,7 @@ public class SearchController {
 	@FXML
 	private void populate(String ctime, String sub, String prof, String ctitle, String cnum, String semester) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
-        Connection con = DriverManager.getConnection("jdbc:sqlite:" + "sample" + ".db");
+        Connection con = DriverManager.getConnection("jdbc:sqlite:" + Integer.toString(newdata.year()) + ".db");
         Statement stat = con.createStatement();
         if (stat.execute(exe.executeinfo(ctime, sub, prof, ctitle, cnum))) {
 			ResultSet results = stat.getResultSet();
