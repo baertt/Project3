@@ -1,5 +1,6 @@
 package dataBaseConstructor;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,5 +55,17 @@ public class NewDataConstructer {
 			System.out.println(code);
 			return code;
 		}
+	}
+	
+	public String ID() {
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+		int day = Calendar.getInstance().get(Calendar.DATE);
+		int hr = Calendar.getInstance().get(Calendar.HOUR);
+		int min = Calendar.getInstance().get(Calendar.MINUTE);
+		int sec = Calendar.getInstance().get(Calendar.SECOND);
+		String id = Integer.toString(year) + Integer.toString(month) + Integer.toString(day) + Integer.toString(hr) + Integer.toString(min) + Integer.toString(sec);
+		System.out.println(id);
+		return id;
 	}
 }

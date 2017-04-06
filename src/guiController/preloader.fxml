@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="278.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiController.PreloaderController">
+   <children>
+      <ProgressIndicator fx:id="loader" layoutX="88.0" layoutY="96.0" prefHeight="84.0" prefWidth="103.0" progress="0.0" />
+   </children>
+</Pane>
