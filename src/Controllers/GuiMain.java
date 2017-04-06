@@ -92,21 +92,18 @@ public class GuiMain extends Application {
                                 "Preparing the scheduler. . .",
                                 "Ready to plan your year?"
                         );
-<<<<<<< HEAD
 
         		ConstructJson file = new ConstructJson();
         		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%20" + Integer.toString(newdata.year()) +"%20&$orderby=CourseId%20asc", Integer.toString(newdata.year()));
         		ConstructDatabase db = new ConstructDatabase();
         		db.Construct(Integer.toString(newdata.year()));
                 updateMessage("Ready to begin planning your year.");
-=======
                 for(int i = 0; i < messages.size(); i++){
                 	TimeUnit.SECONDS.sleep(2);
                 	updateMessage(messages.get(i));
                 }
                 
                 constructDB();
->>>>>>> master
 
                 return seenMessages;
             }
