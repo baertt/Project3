@@ -17,11 +17,15 @@ import org.json.simple.parser.ParseException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+<<<<<<< HEAD
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 //import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+=======
+import javafx.scene.control.*;
+>>>>>>> master
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -34,28 +38,42 @@ public class MainController {
 
 	@FXML
 	ChoiceBox<String> semesterSelector;
+<<<<<<< HEAD
 	
 	@FXML
 	MenuItem create;
 	
 	@FXML
 	MenuItem open;
+=======
+	@FXML
+	ListView<String> currentCourses;
+>>>>>>> master
 
 	String selectedSemester;
 
 	@FXML
+<<<<<<< HEAD
 	public void initialize() throws FileNotFoundException, ClassNotFoundException{
 		for(String semester: semesters){
 			semesterSelector.getItems().add(semester);
 		}
 		semesterSelector.getSelectionModel().select(0);
+=======
+	public void initialize() {
+		List<String> semesters = new ArrayList<>(Arrays.asList("Spring", "Summer", "Fall"));
+        for(String semester: semesters){
+			semesterSelector.getItems().add(semester);
+		}
+		semesterSelector.getSelectionModel().select(2);
+
+>>>>>>> master
 	}
 
 	@FXML
 	public void openCourseList(){
 		try {
 			selectedSemester = semesterSelector.getSelectionModel().getSelectedItem();
-			//System.out.println(selectedSemester);
 
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(GuiMain.class.getResource("CourseList.fxml"));
@@ -71,12 +89,11 @@ public class MainController {
 
 			Image anotherIcon = new Image(url);
 	        secondStage.getIcons().add(anotherIcon);
-	        secondStage.setTitle("  Hendrix College: 2017 - 2018 Course Selector");
+	        secondStage.setTitle("  Hendrix College: Course Selector");
 
 			secondStage.setScene(scene);
 			secondStage.show();
 		} catch (Exception exc) {
-			exc.printStackTrace();
 			Alert r = new Alert(AlertType.NONE, "Cannot open Course List." , ButtonType.OK);
 			r.setTitle("ERROR");
 			r.showAndWait();
