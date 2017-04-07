@@ -26,8 +26,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MainController {
-	NewDataConstructer newdata = new NewDataConstructer();
-	ConstructDatabase db = new ConstructDatabase();
+	//NewDataConstructer newdata = new NewDataConstructer();
+	//ConstructDatabase db = new ConstructDatabase();
 	List<String> semesters = new ArrayList<>(Arrays.asList("Fall", "Spring", "Summer"));
 
 	@FXML
@@ -114,7 +114,7 @@ public class MainController {
 
 
 
-	@FXML
+	/*@FXML
 	void create() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, ParseException {
 		FileChecker fileChecker = new FileChecker();
 		if (fileChecker.fileChecker(Integer.toString(newdata.year()))) {
@@ -124,6 +124,6 @@ public class MainController {
 			db.addUserInfo("OK");
 			db.addCourseInfo();
 		}
-	}
+	}*/
 	
 }
