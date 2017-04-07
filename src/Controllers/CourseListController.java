@@ -9,6 +9,7 @@ import java.sql.*;
 
 import dataBaseConstructor.ConstructDatabase;
 import dataBaseConstructor.ConstructJson;
+import dataBaseConstructor.NewDataConstructer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,7 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class CourseListController {
-
+	NewDataConstructer newdata = new NewDataConstructer();
 	int columns = 6;
 	@FXML
 	TableView<CourseInfo> courses;
@@ -103,7 +104,7 @@ public class CourseListController {
 
 	public void populate(String semester) throws ClassNotFoundException, SQLException, FileNotFoundException{
 		Class.forName("org.sqlite.JDBC");
-        Connection con = DriverManager.getConnection("jdbc:sqlite:sample.db");
+        Connection con = DriverManager.getConnection("jdbc:sqlite:" + Integer.toString(newdata.year()) + ".db");
         Statement stat = con.createStatement();
         if (stat.execute("select * from course")) {
             ResultSet results = stat.getResultSet();

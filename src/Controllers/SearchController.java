@@ -139,7 +139,7 @@ public class SearchController {
 	public void searchFunction() throws ClassNotFoundException, SQLException, IOException{
 		//System.out.println("OK");
 		Class.forName("org.sqlite.JDBC");
-		Connection con = DriverManager.getConnection("jdbc:sqlite" + "sample" + ".db");
+		Connection con = DriverManager.getConnection("jdbc:sqlite" + Integer.toString(newdata.year()) + ".db");
 		Statement stat = con.createStatement();
         String ctime = new String();
         String sub = new String();
