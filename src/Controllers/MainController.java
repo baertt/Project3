@@ -35,14 +35,14 @@ public class MainController {
 
 	@FXML
 	ChoiceBox<String> semesterSelector;
-	
-	
+
+
 	@FXML
 	MenuItem create;
-	
+
 	@FXML
 	MenuItem open;
-	
+
 	@FXML
 	ListView<String> currentCourses;
 
@@ -86,12 +86,12 @@ public class MainController {
 			r.showAndWait();
 		}
 	}
-	
+
 	@FXML
 	void open() {
-		
+
 	}
-	
+
 	@FXML
 	void create() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, ParseException {
 		FileChecker fileChecker = new FileChecker();
