@@ -39,6 +39,11 @@ import javafx.stage.Stage;
 public class SearchController {
 	NewDataConstructer newdata = new NewDataConstructer();
 	ExecuteInfo exe = new ExecuteInfo();
+	String ctime = new String();
+    String sub = new String();
+    String prof = new String();
+    String ctitle = new String();
+    String cnum = new String();
 
 	@FXML
 	Button search;
@@ -105,15 +110,16 @@ public class SearchController {
 
 
 	@FXML
-	public void initialize(){
+	void initialize(){
 		for(String subject: subjects){
 			subjectSelector.getItems().add(subject);
 		}
-		subjectSelector.getSelectionModel().select(0);
+		subjectSelector.getSelectionModel().selectFirst();
+		
 		for(String time: courseTimes){
 			courseTimeSelector.getItems().add(time);
 		}
-		courseTimeSelector.getSelectionModel().select(0);
+		courseTimeSelector.getSelectionModel().selectFirst();
 	}
 
 	public boolean isValidFastSearchNum(){
@@ -138,40 +144,29 @@ public class SearchController {
 	@FXML
 	public void searchFunction() throws ClassNotFoundException, SQLException, IOException{
 		//System.out.println("OK");
-		Class.forName("org.sqlite.JDBC");
-		Connection con = DriverManager.getConnection("jdbc:sqlite" + Integer.toString(newdata.year()) + ".db");
-		Statement stat = con.createStatement();
-        String ctime = new String();
-        String sub = new String();
-        String prof = new String();
-        String ctitle = new String();
-        String cnum = new String();
-
-        if (courseTime.isSelected()){
-			ctime = subjectSelector.getSelectionModel().getSelectedItem();
+		System.out.println(sub);
+		if (courseTimeSelector.getSelectionModel().isSelected(0)) {
+			ctime = "";
+		} else {
+			ctime = courseTimeSelector.getSelectionModel().getSelectedItem();
 		}
-
-		if(subject.isSelected()){
+		
+		if (subjectSelector.getSelectionModel().isSelected(0)) {
+			sub = "";
+		} else {
 			sub = subjectSelector.getSelectionModel().getSelectedItem();
 		}
-
-		if(professor.isSelected()){
-			prof = professorText.getText();
-		}
-
-		if(courseTitle.isSelected()){
-			ctitle = courseTitleText.getText();
-		}
-
-		if(courseNumber.isSelected()){
-			cnum = courseNumberText.getText();
-		}
-
-		courseList.courses.getItems().clear();
-
-
-		populate(ctime, sub, prof, ctitle, cnum, transfer(this.semester));
-
+		
+		prof = professorText.getText();
+		ctitle = courseTitleText.getText();
+		cnum = courseNumberText.getText();
+		
+		System.out.println(sub);
+		
+		System.out.println(sub);
+		
+		populate(ctime, sub, prof, ctitle, cnum, semester);
+		System.out.println(semester);
 
 		Stage stage = (Stage) search.getScene().getWindow();
 		stage.close();
@@ -180,18 +175,17 @@ public class SearchController {
 
 	}
 
-	@FXML
-	private void populate(String ctime, String sub, String prof, String ctitle, String cnum, String semester) throws ClassNotFoundException, SQLException {
+	void populate(String ctime, String sub, String prof, String ctitle, String cnum, String semester) throws ClassNotFoundException, SQLException {
+		courseList.courses.getItems().clear();
 		Class.forName("org.sqlite.JDBC");
         Connection con = DriverManager.getConnection("jdbc:sqlite:" + Integer.toString(newdata.year()) + ".db");
         Statement stat = con.createStatement();
-        if (stat.execute(exe.executeinfo(ctime, sub, prof, ctitle, cnum))) {
+        System.out.println(exe.executeinfo(ctime, sub, prof, ctitle, cnum, semester));
+        if (stat.execute(exe.executeinfo(ctime, sub, prof, ctitle, cnum, semester))) {
 			ResultSet results = stat.getResultSet();
 	        while (results.next()) {
-	        	if (semester.equals(results.getString(2))) {
-	        		courseList.courses.getItems().add(new CourseInfo(results.getString(3), results.getString(4),
-		        			results.getString(7), results.getString(5), results.getString(6), results.getString(8)));
-	        	}
+	        	courseList.courses.getItems().add(new CourseInfo(results.getString(3), results.getString(4),
+		        		results.getString(7), results.getString(5), results.getString(6), results.getString(8)));
 	        }
 		}
         System.out.println("OK");
@@ -201,11 +195,5 @@ public class SearchController {
 		this.courseList = courseListController;
 		this.semester = courseListController.semester;
 		System.out.println("Importing variables");
-	}
-
-	private String transfer(String semester) {
-		if(semester.equals("Fall")) return("1S");
-		else if(semester.equals("Spring")) return("2S");
-		else{return("3S");}
 	}
 }
