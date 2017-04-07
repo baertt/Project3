@@ -44,22 +44,14 @@ public class SearchController {
 	Button search;
 
 	@FXML
-	Button whatIsThis;
+	Button whatTimes;
+	
+	@FXML
+	Button whatDomains;
 
 	@FXML
-	CheckBox courseTime;
+	ChoiceBox<String> learningDomains;
 
-	@FXML
-	CheckBox subject;
-
-	@FXML
-	CheckBox professor;
-
-	@FXML
-	CheckBox courseNumber;
-
-	@FXML
-	CheckBox courseTitle;
 
 	@FXML
 	TextField professorText;
@@ -101,6 +93,10 @@ public class SearchController {
 				"D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10",
 				"S1", "S2", "S3",
 				"L1", "L2", "L3", "L4", "L5", "L6", "NA"));
+	 
+	 List<String> domains = new ArrayList<>(Arrays.asList("Domains", "EA: Expressive Arts", "HP: Historical Perspectives",
+			 "LS: Literary Studies", "NS: Natural Science Inquiry", "NS-L: Natural Science Inquiry with Lab", 
+			 "SB: Social and Behavioral Analysis","VA: Values, Beliefs and Ethics"));
 
 
 
@@ -114,6 +110,10 @@ public class SearchController {
 			courseTimeSelector.getItems().add(time);
 		}
 		courseTimeSelector.getSelectionModel().select(0);
+		for(String domain: domains){
+			learningDomains.getItems().add(domain);
+		}
+		learningDomains.getSelectionModel().select(0);
 	}
 
 	public boolean isValidFastSearchNum(){
@@ -130,6 +130,18 @@ public class SearchController {
 	       java.net.URI myNewLocation = new java.net.URI(downloadURL);
 	      myNewBrowserDesktop.browse(myNewLocation);
 	      } catch(Exception e){
+	    	  // TODO: Come back and write a real error
+	      }
+	}
+	
+	@FXML
+	public void openLearningDomainDescription(){
+		String downloadURL="https://www.hendrix.edu/academics/academics.aspx?id=1072";
+		java.awt.Desktop myNewBrowserDesktop = java.awt.Desktop.getDesktop();
+		try{
+	       java.net.URI myNewLocation = new java.net.URI(downloadURL);
+	      myNewBrowserDesktop.browse(myNewLocation);
+	      } catch(Exception e){
 
 	      }
 	}
@@ -139,7 +151,7 @@ public class SearchController {
 	public void searchFunction() throws ClassNotFoundException, SQLException, IOException{
 		//System.out.println("OK");
 		Class.forName("org.sqlite.JDBC");
-		Connection con = DriverManager.getConnection("jdbc:sqlite" + "sample" + ".db");
+		Connection con = DriverManager.getConnection("jdbc:sqlite" + Integer.toString(newdata.year()) + ".db");
 		Statement stat = con.createStatement();
         String ctime = new String();
         String sub = new String();
@@ -147,23 +159,23 @@ public class SearchController {
         String ctitle = new String();
         String cnum = new String();
 
-        if (courseTime.isSelected()){
+        if (!courseTimeSelector.getValue().equals("Times")){
 			ctime = subjectSelector.getSelectionModel().getSelectedItem();
 		}
 
-		if(subject.isSelected()){
+		if(!subjectSelector.getValue().equals("Select a subject")){
 			sub = subjectSelector.getSelectionModel().getSelectedItem();
 		}
 
-		if(professor.isSelected()){
+		if(!professorText.getText().equals("")){
 			prof = professorText.getText();
 		}
 
-		if(courseTitle.isSelected()){
+		if(!courseTitleText.getText().equals("")){
 			ctitle = courseTitleText.getText();
 		}
 
-		if(courseNumber.isSelected()){
+		if(!courseNumberText.getText().equals("")){
 			cnum = courseNumberText.getText();
 		}
 
@@ -200,7 +212,7 @@ public class SearchController {
 	public void importVariables(CourseListController courseListController) {
 		this.courseList = courseListController;
 		this.semester = courseListController.semester;
-		System.out.println("Importing variables");
+		//System.out.println("Importing variables");
 	}
 
 	private String transfer(String semester) {

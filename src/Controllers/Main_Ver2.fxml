@@ -13,7 +13,7 @@
    <children>
       <Button layoutX="205.0" layoutY="414.0" mnemonicParsing="false" onAction="#openCourseList" text="Add/Change" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutY="4.0" prefHeight="20.0" prefWidth="504.0" text="Your Current Schedule:" textAlignment="CENTER" />
-      <ListView fx:id="currentCourses" layoutY="133.0" prefHeight="267.0" prefWidth="504.0" />
+      <ListView fx:id="currentCourses" layoutY="133.0" onMouseClicked="#remove" prefHeight="267.0" prefWidth="504.0" />
       <ChoiceBox fx:id="semesterSelector" layoutX="177.0" layoutY="75.0" prefWidth="150.0" />
       <MenuBar layoutY="32.0" prefHeight="29.0" prefWidth="504.0">
         <menus>

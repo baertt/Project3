@@ -14,14 +14,11 @@ import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
 //import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -55,7 +52,12 @@ public class MainController {
 			semesterSelector.getItems().add(semester);
 		}
 		semesterSelector.getSelectionModel().select(2);
+		
 	}
+	
+	
+	
+	
 
 	@FXML
 	public void openCourseList(){
@@ -93,6 +95,26 @@ public class MainController {
 	}
 
 	@FXML
+	void remove(){
+		if(!(currentCourses.getItems().size() == 0)){
+			Alert r = new Alert(AlertType.NONE, "Remove this course from your schedule?" , ButtonType.YES, ButtonType.NO);
+			r.setTitle("Remove course?");
+			r.showAndWait();
+
+			if (r.getResult() == ButtonType.YES) {
+				String itemToRemove = currentCourses.getSelectionModel().getSelectedItem();
+				currentCourses.getItems().remove(itemToRemove);
+				r.close();
+
+			} else{
+				r.close();
+			}
+		}
+	}
+
+
+
+	@FXML
 	void create() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, ParseException {
 		FileChecker fileChecker = new FileChecker();
 		if (fileChecker.fileChecker(Integer.toString(newdata.year()))) {
@@ -103,6 +125,5 @@ public class MainController {
 			db.addCourseInfo();
 		}
 	}
-
-
+	
 }
