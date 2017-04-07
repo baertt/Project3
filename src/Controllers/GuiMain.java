@@ -93,12 +93,11 @@ public class GuiMain extends Application {
                                 "Ready to plan your year?"
                         );
 
-        		
                 for(int i = 0; i < messages.size(); i++){
                 	TimeUnit.SECONDS.sleep(2);
                 	updateMessage(messages.get(i));
                 }
-                
+
                 constructDB();
 
                 return seenMessages;
@@ -132,18 +131,18 @@ public class GuiMain extends Application {
 
         main.setTitle("  Hendrix College: Course Selector");
         main.getIcons().add(new Image(APPLICATION_ICON));
-        
+
         main.setScene(scene);
         main.show();
     }
 
     private void constructDB() throws FileNotFoundException, ClassNotFoundException{
     	ConstructJson file = new ConstructJson();
-		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%202017%20&$orderby=CourseId%20asc", "sample");
+		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%20" + Integer.toString(newdata.year()) +"%20&$orderby=CourseId%20asc", Integer.toString(newdata.year()));
 		ConstructDatabase db = new ConstructDatabase();
-		db.Construct("sample");
+		db.Construct(Integer.toString(newdata.year()));
     }
-    
+
     private void showSplash(
             final Stage initStage,
             Task<?> task,
