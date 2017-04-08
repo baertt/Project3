@@ -6,7 +6,9 @@ import java.util.Iterator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
 
@@ -22,9 +24,10 @@ public class DecidedController {
 	Button pick;
 
 	CourseInfo info;
-	
-	ArrayList<String> periods = new ArrayList<String>();
 
+	private ArrayList<String> periods;
+
+	private ListView<String> currentCourses;
 
 	@FXML
 	public void initialize(){
@@ -32,7 +35,9 @@ public class DecidedController {
 	}
 
 
-	public void importVariables(CourseListController courseList) {
+	public void importVariables(CourseListController courseList, MainController main) {
+		this.currentCourses = main.currentCourses;
+		this.periods = courseList.periods;
 		this.main = courseList.main;
 		this.courseList = courseList;
 		this.info = courseList.info;
@@ -45,21 +50,28 @@ public class DecidedController {
 	}
 
 	public boolean isConflict(){
-		System.out.println("isConflict " + periods.toString());
-		System.out.println("isConflict " + info.getPeriod().toString());
 		if(periods.contains(info.getPeriod())){
-			Alert r = new Alert(AlertType.NONE, "There is a scheduling conflict, please select a course or cancel." ,
-					ButtonType.OK, ButtonType.CANCEL);
+			int index = periods.indexOf(info.getPeriod());
+			ButtonType class1 = new ButtonType(info.getTitle(), ButtonData.OK_DONE);
+			ButtonType class2 = new ButtonType(currentCourses.getItems().get(index).substring(0,currentCourses.getItems().get(index).indexOf("\n")), ButtonData.OK_DONE);
+			Alert r = new Alert(AlertType.NONE, "There is a scheduling conflict.\nPlease select which course you would like to keep or cancel." ,
+					class1, class2, ButtonType.CANCEL);
 			r.setTitle("TIME CONFLICT");
 			r.showAndWait();
+
+			if(r.getResult() == class1){
+				currentCourses.getItems().remove(index);
+				currentCourses.getItems().add(String.format("%s\n%s\n%s\n%s\t%s", info.getCode(), info.getTitle(),
+						  info.getProf(), info.getTime(), info.getPeriod()));
+			}
+
 			r.close();
 			return true;
-		} 
-		
+		}
+
 		periods.add(info.getPeriod());
-		System.out.println(periods.toString() + " should have added");
-		return false;	
-				
+		return false;
+
 	}
 
 	@FXML
@@ -68,9 +80,8 @@ public class DecidedController {
 										  info.getProf(), info.getTime(), info.getPeriod());
 		if(isConflict() == false){
 			main.currentCourses.getItems().add(viewedInfo);
-			System.out.println(periods.toString());
-		}	
-		
+		}
+
 		pick.getScene().getWindow().hide();
 	}
 
