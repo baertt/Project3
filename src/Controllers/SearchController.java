@@ -49,22 +49,14 @@ public class SearchController {
 	Button search;
 
 	@FXML
-	Button whatIsThis;
+	Button whatTimes;
 
 	@FXML
-	CheckBox courseTime;
+	Button whatDomains;
 
 	@FXML
-	CheckBox subject;
+	ChoiceBox<String> learningDomains;
 
-	@FXML
-	CheckBox professor;
-
-	@FXML
-	CheckBox courseNumber;
-
-	@FXML
-	CheckBox courseTitle;
 
 	@FXML
 	TextField professorText;
@@ -107,6 +99,10 @@ public class SearchController {
 				"S1", "S2", "S3",
 				"L1", "L2", "L3", "L4", "L5", "L6", "NA"));
 
+	 List<String> domains = new ArrayList<>(Arrays.asList("Domains", "EA: Expressive Arts", "HP: Historical Perspectives",
+			 "LS: Literary Studies", "NS: Natural Science Inquiry", "NS-L: Natural Science Inquiry with Lab",
+			 "SB: Social and Behavioral Analysis","VA: Values, Beliefs and Ethics"));
+
 
 
 	@FXML
@@ -115,11 +111,17 @@ public class SearchController {
 			subjectSelector.getItems().add(subject);
 		}
 		subjectSelector.getSelectionModel().selectFirst();
-		
+
 		for(String time: courseTimes){
 			courseTimeSelector.getItems().add(time);
 		}
-		courseTimeSelector.getSelectionModel().selectFirst();
+
+		courseTimeSelector.getSelectionModel().select(0);
+		for(String domain: domains){
+			learningDomains.getItems().add(domain);
+		}
+		learningDomains.getSelectionModel().select(0);
+
 	}
 
 	public boolean isValidFastSearchNum(){
@@ -131,6 +133,18 @@ public class SearchController {
 	@FXML
 	public void openCourseTimeDescription(){
 		String downloadURL="https://www.hendrix.edu/academics/academics.aspx?id=122";
+		java.awt.Desktop myNewBrowserDesktop = java.awt.Desktop.getDesktop();
+		try{
+	       java.net.URI myNewLocation = new java.net.URI(downloadURL);
+	      myNewBrowserDesktop.browse(myNewLocation);
+	      } catch(Exception e){
+	    	  // TODO: Come back and write a real error
+	      }
+	}
+
+	@FXML
+	public void openLearningDomainDescription(){
+		String downloadURL="https://www.hendrix.edu/academics/academics.aspx?id=1072";
 		java.awt.Desktop myNewBrowserDesktop = java.awt.Desktop.getDesktop();
 		try{
 	       java.net.URI myNewLocation = new java.net.URI(downloadURL);
@@ -150,23 +164,24 @@ public class SearchController {
 		} else {
 			ctime = courseTimeSelector.getSelectionModel().getSelectedItem();
 		}
-		
+
 		if (subjectSelector.getSelectionModel().isSelected(0)) {
 			sub = "";
 		} else {
 			sub = subjectSelector.getSelectionModel().getSelectedItem();
 		}
-		
+
 		prof = professorText.getText();
 		ctitle = courseTitleText.getText();
 		cnum = courseNumberText.getText();
-		
+
 		System.out.println(sub);
-		
+
 		System.out.println(sub);
-		
+
 		populate(ctime, sub, prof, ctitle, cnum, semester);
 		System.out.println(semester);
+
 
 		Stage stage = (Stage) search.getScene().getWindow();
 		stage.close();
@@ -194,6 +209,6 @@ public class SearchController {
 	public void importVariables(CourseListController courseListController) {
 		this.courseList = courseListController;
 		this.semester = courseListController.semester;
-		System.out.println("Importing variables");
+		//System.out.println("Importing variables");
 	}
 }

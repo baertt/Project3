@@ -92,12 +92,12 @@ public class GuiMain extends Application {
                                 "Preparing the scheduler. . .",
                                 "Ready to plan your year?"
                         );
-                
+
                 for(int i = 0; i < messages.size(); i++){
                 	TimeUnit.SECONDS.sleep(2);
                 	updateMessage(messages.get(i));
                 }
-                
+
                 constructDB();
 
                 return seenMessages;
@@ -131,7 +131,7 @@ public class GuiMain extends Application {
 
         main.setTitle("  Hendrix College: Course Selector");
         main.getIcons().add(new Image(APPLICATION_ICON));
-        
+
         main.setScene(scene);
         main.show();
     }
@@ -142,7 +142,7 @@ public class GuiMain extends Application {
 		ConstructDatabase db = new ConstructDatabase();
 		db.Construct(Integer.toString(newdata.year()));
     }
-    
+
     private void showSplash(
             final Stage initStage,
             Task<?> task,
