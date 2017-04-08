@@ -53,7 +53,10 @@ public class DecidedController {
 		if(periods.contains(info.getPeriod())){
 			int index = periods.indexOf(info.getPeriod());
 			ButtonType class1 = new ButtonType(info.getTitle(), ButtonData.OK_DONE);
-			ButtonType class2 = new ButtonType(currentCourses.getItems().get(index).substring(0,currentCourses.getItems().get(index).indexOf("\n")), ButtonData.OK_DONE);
+			String classForClass2 = currentCourses.getItems().get(index);
+			int num = classForClass2.indexOf("\n");
+			int num2 = classForClass2.indexOf("\n", num + 1);
+			ButtonType class2 = new ButtonType(classForClass2.substring(num + 1,num2),  ButtonData.OK_DONE);
 			Alert r = new Alert(AlertType.NONE, "There is a scheduling conflict.\nPlease select which course you would like to keep or cancel." ,
 					class1, class2, ButtonType.CANCEL);
 			r.setTitle("TIME CONFLICT");
