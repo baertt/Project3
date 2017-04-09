@@ -121,7 +121,7 @@ public class MainController {
 			db.ConstructUserInfo();
 			db.addCourseInfo();
 		} else {
-			db.addUserInfo("OK");
+			db.addUserInfo("Untitled");
 			db.addCourseInfo();
 		}
 	}
