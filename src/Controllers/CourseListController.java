@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.sql.*;
 
@@ -43,6 +44,10 @@ public class CourseListController {
 	String semester;
 	CourseInfo info;
 
+	ArrayList<String> springPeriods = new ArrayList<String>();
+	ArrayList<String> fallPeriods = new ArrayList<String>();
+	ArrayList<String> summerPeriods = new ArrayList<String>();
+
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException, FileNotFoundException{
 
@@ -71,7 +76,7 @@ public class CourseListController {
 
 		populate(semester);
 	}
-	
+
 	@FXML
 	public void openSearch(){
 		try {
@@ -125,7 +130,7 @@ public class CourseListController {
 			Pane root = (Pane) loader.load();
 
 			DecidedController chosen = (DecidedController)loader.getController();
-			chosen.importVariables(this);
+			chosen.importVariables(this, main);
 
 			Stage secondStage = new Stage();
 			Scene scene = new Scene(root);
@@ -146,7 +151,7 @@ public class CourseListController {
 		}
 	}
 
-	@FXML
+
 	public void importVariables(MainController main) throws ClassNotFoundException, FileNotFoundException, SQLException {
 		this.main = main;
 		this.semester = main.selectedSemester;

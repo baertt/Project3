@@ -158,7 +158,7 @@ public class SearchController {
 	@FXML
 	public void searchFunction() throws ClassNotFoundException, SQLException, IOException{
 		//System.out.println("OK");
-		System.out.println(sub);
+		//System.out.println(sub);
 		if (courseTimeSelector.getSelectionModel().isSelected(0)) {
 			ctime = "";
 		} else {
@@ -175,12 +175,12 @@ public class SearchController {
 		ctitle = courseTitleText.getText();
 		cnum = courseNumberText.getText();
 
-		System.out.println(sub);
+		//System.out.println(sub);
 
-		System.out.println(sub);
+		//System.out.println(sub);
 
 		populate(ctime, sub, prof, ctitle, cnum, semester);
-		System.out.println(semester);
+		//System.out.println(semester);
 
 
 		Stage stage = (Stage) search.getScene().getWindow();
@@ -195,7 +195,7 @@ public class SearchController {
 		Class.forName("org.sqlite.JDBC");
         Connection con = DriverManager.getConnection("jdbc:sqlite:" + Integer.toString(newdata.year()) + ".db");
         Statement stat = con.createStatement();
-        System.out.println(exe.executeinfo(ctime, sub, prof, ctitle, cnum, semester));
+        //System.out.println(exe.executeinfo(ctime, sub, prof, ctitle, cnum, semester));
         if (stat.execute(exe.executeinfo(ctime, sub, prof, ctitle, cnum, semester))) {
 			ResultSet results = stat.getResultSet();
 	        while (results.next()) {
@@ -203,7 +203,7 @@ public class SearchController {
 		        		results.getString(7), results.getString(5), results.getString(6), results.getString(8)));
 	        }
 		}
-        System.out.println("OK");
+        //System.out.println("OK");
 	}
 
 	public void importVariables(CourseListController courseListController) {

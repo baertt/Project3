@@ -45,7 +45,11 @@ public class MainController {
 
 	String selectedSemester;
 	
+<<<<<<< HEAD
 	String semester;
+=======
+	ArrayList<String> periods = new ArrayList<String>();
+>>>>>>> master
 
 	@FXML
 	public void initialize() {
