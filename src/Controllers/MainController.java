@@ -44,6 +44,8 @@ public class MainController {
 	ListView<String> currentCourses;
 
 	String selectedSemester;
+	
+	String semester;
 
 	@FXML
 	public void initialize() {
@@ -115,15 +117,7 @@ public class MainController {
 
 
 	@FXML
-	void create() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, ParseException {
-		FileChecker fileChecker = new FileChecker();
-		if (fileChecker.fileChecker(Integer.toString(newdata.year()))) {
-			db.ConstructUserInfo();
-			db.addCourseInfo();
-		} else {
-			db.addUserInfo("Untitled");
-			db.addCourseInfo();
-		}
+	void create() {
 	}
 	
 }

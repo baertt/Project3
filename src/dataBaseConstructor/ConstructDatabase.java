@@ -82,8 +82,8 @@ public class ConstructDatabase {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
-		stat.execute("create table user (ProjectName string, ProjectId string)");
-		stat.execute("create table schedule (ProjectId string, CourseId integer)");
+		stat.execute("create table user (ProjectName string, ProjectId string, Semester string)");
+		stat.execute("create table schedule (ProjectId string, CourseId integer, Semester string)");
 		
 	}
 	
@@ -127,23 +127,45 @@ public class ConstructDatabase {
 		}
 	}
 	
-	public void addUserInfo(String projectname) throws ClassNotFoundException, SQLException {
+	public void addUserInfo(String projectname, String semester) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
 		stat.execute("insert into user values("
 				+ ", '" + apos.remodify(projectname) + "'"
 				+ ", '" + newdata.ID() + "'"
+				+ ", '" + semester + "'"
 				+ ")");
 	}
 	
-	public void addSchedule(String id, String courseid) throws ClassNotFoundException, SQLException {
+	public void addSchedule(String id, Integer courseid, String semester) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
 		stat.execute("insert into user values("
 				+ ", '" + id + "'"
 				+ ", '" + courseid + "'"
+				+ ", '" + semester + "'"
 				+ ")");
+	}
+	
+	public void getUserInfo(String projectname, String projectid, String semester) throws ClassNotFoundException, SQLException {
+		Class.forName("org.sqlite.JDBC");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
+		Statement stat = con.createStatement();
+		stat.execute("select * from user where "
+				+ "ProjectName like '%" + projectname + "%' "
+				+ "and ProjectId like '%" + projectid + "%' "
+				+ "and Semester like '%" + semester + "%'");
+	}
+	
+	public void getSchedule(String id, Integer courseid, String semester) throws ClassNotFoundException, SQLException {
+		Class.forName("org.sqlite.JDBC");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
+		Statement stat = con.createStatement();
+		stat.execute("select * from user where "
+				+ "ProjectId like '%" + id + "%' "
+				+ "and CourseId =" + courseid + " "
+				+ "and Semester like '%" + semester + "%'");
 	}
 }
