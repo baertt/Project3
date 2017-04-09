@@ -25,9 +25,11 @@ public class DecidedController {
 
 	CourseInfo info;
 
-	private ArrayList<String> periods;
+	public ArrayList<String> periods;
 
 	private ListView<String> currentCourses;
+
+	private String semester;
 
 	@FXML
 	public void initialize(){
@@ -37,8 +39,10 @@ public class DecidedController {
 
 	public void importVariables(CourseListController courseList, MainController main) {
 		this.currentCourses = main.currentCourses;
-		this.periods = courseList.periods;
+		//this.springPeriods = courseList.springPeriods;
+		this.periods = main.periods;
 		this.main = courseList.main;
+		this.semester = main.selectedSemester;
 		this.courseList = courseList;
 		this.info = courseList.info;
 		fillDescription();
@@ -49,7 +53,9 @@ public class DecidedController {
 		description.setText(info.toString());
 	}
 
+
 	public boolean isConflict(){
+		//System.out.println(periods.toString());
 		if(periods.contains(info.getPeriod())){
 			int index = periods.indexOf(info.getPeriod());
 			ButtonType class1 = new ButtonType(info.getTitle(), ButtonData.OK_DONE);

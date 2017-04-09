@@ -44,7 +44,9 @@ public class CourseListController {
 	String semester;
 	CourseInfo info;
 
-	ArrayList<String> periods = new ArrayList<String>();
+	ArrayList<String> springPeriods = new ArrayList<String>();
+	ArrayList<String> fallPeriods = new ArrayList<String>();
+	ArrayList<String> summerPeriods = new ArrayList<String>();
 
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException, FileNotFoundException{
@@ -149,7 +151,7 @@ public class CourseListController {
 		}
 	}
 
-	@FXML
+
 	public void importVariables(MainController main) throws ClassNotFoundException, FileNotFoundException, SQLException {
 		this.main = main;
 		this.semester = main.selectedSemester;

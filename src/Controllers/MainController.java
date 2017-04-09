@@ -44,6 +44,8 @@ public class MainController {
 	ListView<String> currentCourses;
 
 	String selectedSemester;
+	
+	ArrayList<String> periods = new ArrayList<String>();
 
 	@FXML
 	public void initialize() {
