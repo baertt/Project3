@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 //import javafx.scene.control.MenuBar;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -33,6 +34,7 @@ public class MainController {
 	@FXML
 	ChoiceBox<String> semesterSelector;
 
+	CourseInfo info;
 
 	@FXML
 	MenuItem create;
@@ -44,7 +46,7 @@ public class MainController {
 	ListView<String> currentCourses;
 
 	String selectedSemester;
-	
+
 	ArrayList<String> periods = new ArrayList<String>();
 
 	@FXML
@@ -54,12 +56,12 @@ public class MainController {
 			semesterSelector.getItems().add(semester);
 		}
 		semesterSelector.getSelectionModel().select(2);
-		
+
 	}
-	
-	
-	
-	
+
+
+
+
 
 	@FXML
 	public void openCourseList(){
@@ -97,20 +99,51 @@ public class MainController {
 	}
 
 	@FXML
-	void remove(){
+	void doWhat(){
 		if(!(currentCourses.getItems().size() == 0)){
-			Alert r = new Alert(AlertType.NONE, "Remove this course from your schedule?" , ButtonType.YES, ButtonType.NO);
-			r.setTitle("Remove course?");
+			ButtonType remove = new ButtonType("Remove course", ButtonData.OK_DONE);
+			ButtonType describe = new ButtonType("View Description", ButtonData.OK_DONE);
+			int index = currentCourses.getSelectionModel().getSelectedItem().toString().indexOf("/n") + 1;
+			Alert r = new Alert(AlertType.NONE, "What would you like to do?" , remove, describe,  ButtonType.CANCEL);
+			r.setTitle(currentCourses.getSelectionModel().getSelectedItem().toString().substring(0,index));
 			r.showAndWait();
 
-			if (r.getResult() == ButtonType.YES) {
-				String itemToRemove = currentCourses.getSelectionModel().getSelectedItem();
-				currentCourses.getItems().remove(itemToRemove);
-				r.close();
+			if (r.getResult() == remove) {
+				remove();
 
-			} else{
-				r.close();
+			} else if(r.getResult() == describe){
+				describe();
 			}
+		}
+	}
+
+	void describe(){
+		ButtonType remove = new ButtonType("Remove course", ButtonData.OK_DONE);
+		int index = currentCourses.getSelectionModel().getSelectedItem().toString().indexOf("/n") + 1;
+		//info = currentCourses.getSelectionModel().getSelectedItem();
+		//String viewedInfo = String.format("%s\n%s\n%s\n%s\t%s", info.getCode(), info.getTitle(),
+				 // info.getProf(), info.getTime(), info.getPeriod());
+		Alert r = new Alert(AlertType.NONE,currentCourses.getSelectionModel().getSelectedItem().toString(), ButtonType.OK, remove);
+		r.setTitle(currentCourses.getSelectionModel().getSelectedItem().toString().substring(0,index));
+		r.showAndWait();
+
+		if(r.getResult() == remove){
+			remove();
+		}
+	}
+
+	void remove(){
+		Alert r = new Alert(AlertType.NONE, "Remove this course from your schedule?" , ButtonType.YES, ButtonType.NO);
+		r.setTitle("Remove course?");
+		r.showAndWait();
+
+		if (r.getResult() == ButtonType.YES) {
+			String itemToRemove = currentCourses.getSelectionModel().getSelectedItem();
+			currentCourses.getItems().remove(itemToRemove);
+			r.close();
+
+		} else{
+			r.close();
 		}
 	}
 
@@ -127,5 +160,4 @@ public class MainController {
 			db.addCourseInfo();
 		}
 	}
-	
 }
