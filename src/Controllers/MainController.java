@@ -47,6 +47,9 @@ public class MainController {
 
 	String selectedSemester;
 
+	String semester;
+
+
 	ArrayList<String> periods = new ArrayList<String>();
 
 	@FXML
@@ -147,8 +150,6 @@ public class MainController {
 		}
 	}
 
-
-
 	@FXML
 	void create() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, ParseException {
 		FileChecker fileChecker = new FileChecker();
@@ -156,8 +157,9 @@ public class MainController {
 			db.ConstructUserInfo();
 			db.addCourseInfo();
 		} else {
-			db.addUserInfo("OK");
+			db.addUserInfo("OK", selectedSemester);
 			db.addCourseInfo();
 		}
+
 	}
 }

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+
+import org.json.simple.parser.ParseException;
 
 import dataBaseConstructor.ConstructDatabase;
 import dataBaseConstructor.ConstructJson;
@@ -81,7 +84,7 @@ public class GuiMain extends Application {
     public void start(final Stage initStage) throws Exception {
         Task<ObservableList<String>> loadProgram = new Task<ObservableList<String>>() {
             @Override
-            protected ObservableList<String> call() throws InterruptedException, FileNotFoundException, ClassNotFoundException {
+            protected ObservableList<String> call() throws InterruptedException, ClassNotFoundException, SQLException, IOException, ParseException {
                 ObservableList<String> seenMessages =
                         FXCollections.<String>observableArrayList();
                 ObservableList<String> messages =
@@ -136,11 +139,13 @@ public class GuiMain extends Application {
         main.show();
     }
 
-    private void constructDB() throws FileNotFoundException, ClassNotFoundException{
+    private void constructDB() throws ClassNotFoundException, SQLException, IOException, ParseException{
     	ConstructJson file = new ConstructJson();
 		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%20" + Integer.toString(newdata.year()) +"%20&$orderby=CourseId%20asc", Integer.toString(newdata.year()));
 		ConstructDatabase db = new ConstructDatabase();
 		db.Construct(Integer.toString(newdata.year()));
+//		db.ConstructUserInfo();
+//		db.addCourseInfo();
     }
 
     private void showSplash(

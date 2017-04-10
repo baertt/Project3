@@ -34,7 +34,7 @@ public class ConstructDatabase {
 			Object obj = parser.parse(new FileReader(filename + ".json"));
 			JSONObject json_obj = (JSONObject) obj;
 			stat.execute("drop table if exists course");
-			stat.execute("create table course (CourseId integer, TermCode string, CourseCode string, Title string, Period string, Schedule string, Instructors string, Description string, CollegiateCode string)");
+			stat.execute("create table course (CourseId integer, TermCode string, CourseCode string, Title string, Period string, Schedule string, Instructors string, Description string, CollegiateCodes string)");
 			List<?> x = (List<?>) json_obj.get("value");
 			for (int i = 0; i < x.size(); i++) {
 //				System.out.println(x.get(i));
@@ -45,9 +45,10 @@ public class ConstructDatabase {
 				} else {
 					des = y.get("Description").toString().trim();
 				}
+				System.out.println(y.get("CollegiateCodes"));
 				List<?> schedule = (List<?>) y.get("Schedule");
 				List<?> instructors = (List<?>) y.get("Instructors");
-				List<?> collegiate = (List<?>) y.get("CollegiateCode");
+				List<?> collegiate = (List<?>) y.get("CollegiateCodes");
 			//	System.out.println(i);
 //				System.out.println(y.get("CourseId"));
 //				System.out.println(y.get("Title"));
@@ -82,8 +83,8 @@ public class ConstructDatabase {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
-		stat.execute("create table user (ProjectName string, ProjectId string)");
-		stat.execute("create table schedule (ProjectId string, CourseId integer)");
+		stat.execute("create table user (ProjectName string, ProjectId string, Semester string)");
+		stat.execute("create table schedule (ProjectId string, CourseId integer, Semester string)");
 		
 	}
 	
@@ -127,23 +128,45 @@ public class ConstructDatabase {
 		}
 	}
 	
-	public void addUserInfo(String projectname) throws ClassNotFoundException, SQLException {
+	public void addUserInfo(String projectname, String semester) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
 		stat.execute("insert into user values("
 				+ ", '" + apos.remodify(projectname) + "'"
 				+ ", '" + newdata.ID() + "'"
+				+ ", '" + semester + "'"
 				+ ")");
 	}
 	
-	public void addSchedule(String id, String courseid) throws ClassNotFoundException, SQLException {
+	public void addSchedule(String id, Integer courseid, String semester) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
 		Statement stat = con.createStatement();
 		stat.execute("insert into user values("
 				+ ", '" + id + "'"
 				+ ", '" + courseid + "'"
+				+ ", '" + semester + "'"
 				+ ")");
+	}
+	
+	public void getUserInfo(String projectname, String projectid, String semester) throws ClassNotFoundException, SQLException {
+		Class.forName("org.sqlite.JDBC");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
+		Statement stat = con.createStatement();
+		stat.execute("select * from user where "
+				+ "ProjectName like '%" + projectname + "%' "
+				+ "and ProjectId like '%" + projectid + "%' "
+				+ "and Semester like '%" + semester + "%'");
+	}
+	
+	public void getSchedule(String id, Integer courseid, String semester) throws ClassNotFoundException, SQLException {
+		Class.forName("org.sqlite.JDBC");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
+		Statement stat = con.createStatement();
+		stat.execute("select * from user where "
+				+ "ProjectId like '%" + id + "%' "
+				+ "and CourseId =" + courseid + " "
+				+ "and Semester like '%" + semester + "%'");
 	}
 }
