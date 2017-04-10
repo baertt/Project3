@@ -70,8 +70,8 @@ public class DecidedController {
 
 			if(r.getResult() == class1){
 				currentCourses.getItems().remove(index);
-				currentCourses.getItems().add(String.format("%s\n%s\n%s\n%s\t%s", info.getCode(), info.getTitle(),
-						  info.getProf(), info.getTime(), info.getPeriod()));
+				currentCourses.getItems().add(String.format("%s %s %s", info.getCode(), info.getTitle(),
+						  info.getProf()));
 			}
 
 			r.close();
@@ -85,8 +85,8 @@ public class DecidedController {
 
 	@FXML
 	public void pickClass(){
-		String viewedInfo = String.format("%s\n%s\n%s\n%s\t%s", info.getCode(), info.getTitle(),
-										  info.getProf(), info.getTime(), info.getPeriod());
+		String viewedInfo = String.format("%s %s %s", info.getCode(), info.getTitle(),
+										  info.getProf());
 		if(isConflict() == false){
 			main.currentCourses.getItems().add(viewedInfo);
 		}
