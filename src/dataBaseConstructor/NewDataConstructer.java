@@ -42,8 +42,10 @@ public class NewDataConstructer {
 	}
 	
 	public String collegiateCode(List<?> cocode) {
+		System.out.println(cocode);
 		String code = "";
 		if (cocode == null) {
+//			System.out.println(cocode.size());
 			return "NA";
 		} else {
 			for (int i = 0; i < cocode.size(); i++) {
@@ -53,7 +55,7 @@ public class NewDataConstructer {
 					code = code + cocode.get(i).toString() + "/";
 				}
 			}
-			System.out.println(code);
+//			System.out.println(code);
 			return code;
 		}
 	}

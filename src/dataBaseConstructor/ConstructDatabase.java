@@ -34,7 +34,7 @@ public class ConstructDatabase {
 			Object obj = parser.parse(new FileReader(filename + ".json"));
 			JSONObject json_obj = (JSONObject) obj;
 			stat.execute("drop table if exists course");
-			stat.execute("create table course (CourseId integer, TermCode string, CourseCode string, Title string, Period string, Schedule string, Instructors string, Description string, CollegiateCode string)");
+			stat.execute("create table course (CourseId integer, TermCode string, CourseCode string, Title string, Period string, Schedule string, Instructors string, Description string, CollegiateCodes string)");
 			List<?> x = (List<?>) json_obj.get("value");
 			for (int i = 0; i < x.size(); i++) {
 //				System.out.println(x.get(i));
@@ -45,9 +45,10 @@ public class ConstructDatabase {
 				} else {
 					des = y.get("Description").toString().trim();
 				}
+				System.out.println(y.get("CollegiateCodes"));
 				List<?> schedule = (List<?>) y.get("Schedule");
 				List<?> instructors = (List<?>) y.get("Instructors");
-				List<?> collegiate = (List<?>) y.get("CollegiateCode");
+				List<?> collegiate = (List<?>) y.get("CollegiateCodes");
 			//	System.out.println(i);
 //				System.out.println(y.get("CourseId"));
 //				System.out.println(y.get("Title"));
