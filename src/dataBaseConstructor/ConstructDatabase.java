@@ -45,7 +45,7 @@ public class ConstructDatabase {
 				} else {
 					des = y.get("Description").toString().trim();
 				}
-				System.out.println(y.get("CollegiateCodes"));
+				//System.out.println(y.get("CollegiateCodes"));
 				List<?> schedule = (List<?>) y.get("Schedule");
 				List<?> instructors = (List<?>) y.get("Instructors");
 				List<?> collegiate = (List<?>) y.get("CollegiateCodes");
@@ -85,9 +85,9 @@ public class ConstructDatabase {
 		Statement stat = con.createStatement();
 		stat.execute("create table user (ProjectName string, ProjectId string, Semester string)");
 		stat.execute("create table schedule (ProjectId string, CourseId integer, Semester string)");
-		
+
 	}
-	
+
 	public void addCourseInfo() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException, ParseException {
 		JSONParser parser=new JSONParser();
 		Class.forName("org.sqlite.JDBC");
@@ -127,7 +127,7 @@ public class ConstructDatabase {
 			+ ")");
 		}
 	}
-	
+
 	public void addUserInfo(String projectname, String semester) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
@@ -138,7 +138,7 @@ public class ConstructDatabase {
 				+ ", '" + semester + "'"
 				+ ")");
 	}
-	
+
 	public void addSchedule(String id, Integer courseid, String semester) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
@@ -149,7 +149,7 @@ public class ConstructDatabase {
 				+ ", '" + semester + "'"
 				+ ")");
 	}
-	
+
 	public void getUserInfo(String projectname, String projectid, String semester) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
@@ -159,7 +159,7 @@ public class ConstructDatabase {
 				+ "and ProjectId like '%" + projectid + "%' "
 				+ "and Semester like '%" + semester + "%'");
 	}
-	
+
 	public void getSchedule(String id, Integer courseid, String semester) throws ClassNotFoundException, SQLException {
 		Class.forName("org.sqlite.JDBC");
 		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");

@@ -31,6 +31,8 @@ public class DecidedController {
 
 	private String semester;
 
+	public ArrayList<String> courseDescriptions = new ArrayList<String>();
+
 	@FXML
 	public void initialize(){
 		description.setEditable(false);
@@ -89,6 +91,7 @@ public class DecidedController {
 										  info.getProf(), info.getTime(), info.getPeriod());
 		if(isConflict() == false){
 			main.currentCourses.getItems().add(viewedInfo);
+			courseDescriptions.add(viewedInfo);
 		}
 
 		pick.getScene().getWindow().hide();

@@ -12,13 +12,13 @@ public class NewDataConstructer {
 		} else {
 			HashMap<?, ?> sch_in = (HashMap<?, ?>) schedule.get(0);
 			String sch_out = sch_in.get("DayPattern").toString() + " "
-					+ checklength(sch_in.get("StartHour").toString()) + ":" + checklength(sch_in.get("StartMinute").toString()) + " - " 
+					+ checklength(sch_in.get("StartHour").toString()) + ":" + checklength(sch_in.get("StartMinute").toString()) + " - "
 					+ checklength(sch_in.get("EndHour").toString()) + ":" + checklength(sch_in.get("EndMinute").toString()) + " "
 					+ sch_in.get("Building").toString() + " " + sch_in.get("Room").toString();
 			return sch_out;
 		}
 	}
-	
+
 	public String checklength(String string) {
 		if (string.length() < 2) {
 			string = "0" + string;
@@ -27,11 +27,11 @@ public class NewDataConstructer {
 			return string;
 		}
 	}
-	
+
 	public String instructor(List<?> instructor) {
 		String ins_out = "";
 		for (int i = 0; i < instructor.size(); i++) {
-			HashMap<?, ?> ins_in = (HashMap<?, ?>) instructor.get(i); 
+			HashMap<?, ?> ins_in = (HashMap<?, ?>) instructor.get(i);
 			if (i + 1 == instructor.size()) {
 				ins_out = ins_out + ins_in.get("LastName").toString() + ", " + ins_in.get("FirstName");
 			} else {
@@ -40,9 +40,9 @@ public class NewDataConstructer {
 		}
 		return ins_out;
 	}
-	
+
 	public String collegiateCode(List<?> cocode) {
-		System.out.println(cocode);
+		//System.out.println(cocode);
 		String code = "";
 		if (cocode == null) {
 //			System.out.println(cocode.size());
@@ -59,7 +59,7 @@ public class NewDataConstructer {
 			return code;
 		}
 	}
-	
+
 	public String ID() {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
@@ -68,10 +68,10 @@ public class NewDataConstructer {
 		int min = Calendar.getInstance().get(Calendar.MINUTE);
 		int sec = Calendar.getInstance().get(Calendar.SECOND);
 		String id = Integer.toString(year) + Integer.toString(month) + Integer.toString(day) + Integer.toString(hr) + Integer.toString(min) + Integer.toString(sec);
-		System.out.println(id);
+		//System.out.println(id);
 		return id;
 	}
-	
+
 	public int year() {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		return year;
