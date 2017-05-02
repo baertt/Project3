@@ -166,7 +166,14 @@ public class ConstructDatabase {
 		Statement stat = con.createStatement();
 		stat.execute("select * from user where "
 				+ "ProjectId like '%" + id + "%' "
-				+ "and CourseId =" + courseid + " "
+				+ "and CourseId = " + courseid + " "
 				+ "and Semester like '%" + semester + "%'");
+	}
+	
+	public void addContext() throws ClassNotFoundException, SQLException {
+		Class.forName("org.sqlite.JDBC");
+		Connection con = DriverManager.getConnection("jdbc:sqlite:user.db");
+		Statement stat = con.createStatement();
+		stat.execute("select * from user where");
 	}
 }

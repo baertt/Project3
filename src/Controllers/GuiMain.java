@@ -144,8 +144,8 @@ public class GuiMain extends Application {
 		file.loadJson("http://hoike.hendrix.edu/api/CourseModel?$filter=YearCode%20eq%20" + Integer.toString(newdata.year()) +"%20&$orderby=CourseId%20asc", Integer.toString(newdata.year()));
 		ConstructDatabase db = new ConstructDatabase();
 		db.Construct(Integer.toString(newdata.year()));
-//		db.ConstructUserInfo();
-//		db.addCourseInfo();
+		db.ConstructUserInfo();
+		db.addCourseInfo();
     }
 
     private void showSplash(
